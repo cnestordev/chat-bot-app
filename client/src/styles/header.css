@@ -1,0 +1,40 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.header-container .title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.header-container .title h2 {
+  font-size: 40px;
+  color: #272727;
+  font-weight: 600;
+}
+.header-container .title .icon {
+  font-size: 30px;
+  color: #272727;
+}
+.header-container .media {
+  padding: 12px;
+  border-radius: 50px;
+}
+.header-container .media .icon {
+  cursor: pointer;
+  color: #272727;
+  font-size: 17px;
+}
+.header-container .media:active {
+  background-color: #dbe7ff;
+  transition: background-color 0ms;
+}
+.header-container .media:active .icon {
+  color: #5378c1;
+}
+.header-container .media:not(:active) {
+  transition: background-color 750ms;
+  background-color: transparent;
+}/*# sourceMappingURL=header.css.map */

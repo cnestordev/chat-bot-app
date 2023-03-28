@@ -1,0 +1,27 @@
+.input-container {
+  padding: 10px 15px;
+  display: flex;
+  position: relative;
+}
+.input-container .input-field {
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  background-color: #f6f8fc;
+  color: #303030;
+  padding: 15px;
+  border-radius: 25px;
+  padding-left: 37px;
+}
+.input-container .input-field::-moz-placeholder {
+  color: #ccc;
+}
+.input-container .input-field::placeholder {
+  color: #ccc;
+}
+.input-container .icon {
+  position: absolute;
+  left: 30px;
+  top: 27px;
+  color: #ccc;
+}/*# sourceMappingURL=input.css.map */
