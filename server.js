@@ -4,19 +4,51 @@ const port = process.env.PORT || 5000;
 require("dotenv").config();
 const axios = require("axios");
 const path = require("path");
-
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+// -----------------------Mongo Database -----------------------------------------------------------------------
+// connect to a local mongo server
+mongoose.connect("mongodb://127.0.0.1:27017/usersDB");
+
+const userSchema = new mongoose.Schema({
+  user: {
+    type: String,
+    required: [true, "Something went wrong!"],
+  },
+  chatlog: [{ user: { type: String, required: true }, message: String }],
+});
+
+const User = mongoose.model("User", userSchema);
+
+// const user = new User({
+//   user: "Nestor",
+//   chatlog: [
+//     {
+//       user: "bot",
+//       message: "Hello. I am a chat bot using OpenAI's API.  Ask me anything.",
+//     },
+//   ],
+// });
+
+// user.save();
+
+// ----------------------------- End of Mongo Data base --------------------------------------------------------------
+
+// -------------------Routes ---------------------------------------------------------------------------
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "./client/build")));
 
-app.get("/api/hello", (req, res) => {
-  res.send({ express: "Hello From Express" });
+app.get("/api/getuser", async (req, res) => {
+  const user = await User.findOne({ user: "Nestor" });
+  res.json({ success: true, user });
 });
 
-app.post("/api/messages", (req, res) => {
+app.post("/api/query", (req, res) => {
   const message = req.body.message;
   axios
     .post(
@@ -71,6 +103,23 @@ app.get("/api/tts", async (req, res) => {
       .json({ error: "An error occurred while generating TTS audio." });
   }
 });
+
+app.put("/api/updatechatlog", async (req, res) => {
+  const { userMessage, botMessage } = req.body;
+  try {
+    const user = await User.findOne({ user: "Nestor" });
+    user.chatlog.push(userMessage, botMessage);
+    await user.save();
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating chat log." });
+  }
+});
+
+// ------------------------------ end of routes ---------------------------------------------------------------
 
 app.listen(port, () => {
   console.log("listening on port 5000");
