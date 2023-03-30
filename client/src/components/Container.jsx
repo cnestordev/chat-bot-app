@@ -9,12 +9,16 @@ const Container = () => {
   const [user, setUser] = useState({
     chatlog: [{ username: "Bot", message: "Hello" }],
   });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await axios.get("/api/getuser");
         if (response.data.user) {
+          console.log(response.data.user);
           setUser(response.data.user);
         }
       } catch (error) {
@@ -23,6 +27,34 @@ const Container = () => {
     };
     getUser();
   }, []);
+
+  const handleRegistration = () => {
+    const newUser = { username, password };
+    axios
+      .post("/api/register", newUser)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleLogin = () => {
+    const user = { username, password };
+    axios
+      .post("/api/login", user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
 
   const updateChatlog = async (userMessage, botMessage) => {
     try {
@@ -42,7 +74,16 @@ const Container = () => {
 
   return (
     <div className="main-container">
-      <Menu />
+      <Menu
+        username={username}
+        password={password}
+        setUsername={setUsername}
+        setPassword={setPassword}
+        toggle={toggle}
+        handleLogin={handleLogin}
+        handleRegistration={handleRegistration}
+        handleToggle={handleToggle}
+      />
       <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />
     </div>
   );

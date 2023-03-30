@@ -1,40 +1,15 @@
 import "../styles/menu.css";
-import axios from "axios";
-import { useState } from "react";
 
-const Menu = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [toggle, setToggle] = useState(false);
-
-  const handleRegistration = () => {
-    const newUser = { username, password };
-    axios
-      .post("/api/register", newUser)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleLogin = () => {
-    const user = { username, password };
-    axios
-      .post("/api/login", user)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleToggle = () => {
-    setToggle(!toggle);
-  };
-
+const Menu = ({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  toggle,
+  handleLogin,
+  handleRegistration,
+  handleToggle,
+}) => {
   return (
     <div className="menu-container">
       <div className="menu-header">

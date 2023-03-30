@@ -79,16 +79,20 @@ passport.deserializeUser(User.deserializeUser());
 // ------------------- routes setup ------------------------------------------------------------------
 
 app.get("/api/getuser", async (req, res) => {
-  console.log(req.isAuthenticated());
-  console.log(req.user);
-  // const username = req.user.username;
-  // const user = await User.findOne({ username });
-  // res.json({ success: true, user });
-  const user = {
-    user: "Blinky",
-    chatlog: [{ username: "Bot", message: "Welcome" }],
-  };
-  res.json({ success: true, user });
+  if (!req.user) {
+    return res.status(200).json(tempUser);
+  }
+
+  try {
+    const username = req.user.username;
+    const user = await User.findOne({ username });
+    res.json({ success: true, user });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while retrieving user data." });
+  }
 });
 
 app.post("/api/query", (req, res) => {
@@ -186,12 +190,17 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    if (err) return next(err);
-    if (!user)
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
+    }
     req.logIn(user, (err) => {
-      if (err) return next(err);
-      return res.json({ user });
+      if (err) {
+        return next(err);
+      }
+      return res.json({ username: user.username, chatlog: user.chatlog });
     });
   })(req, res, next);
 });
