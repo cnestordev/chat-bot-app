@@ -1,0 +1,23 @@
+const mongoose = require("mongoose");
+
+const userSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: [true, "something went wrong!"],
+  },
+  colorScheme: String,
+  chatlogs: [
+    {
+      user: {
+        type: String,
+        required: [true, "something went wrong!"],
+      },
+      message: {
+        type: String,
+        required: [true, "something went wrong!"],
+      },
+    },
+  ],
+});
+
+module.exports = mongoose.model("User", userSchema);

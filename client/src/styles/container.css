@@ -1,7 +1,8 @@
 .main-container {
   display: flex;
   gap: 8%;
-  padding: 0 40px;
+  padding: 0 100px;
+  width: 100%;
 }
 .main-container .menu-container {
   flex-basis: 14%;

@@ -6,13 +6,17 @@ import Menu from "./Menu";
 import "../styles/container.css";
 
 const Container = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    chatlog: [{ user: "Bot", message: "Hello" }],
+  });
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await axios.get("/api/getuser");
-        setUser(response.data.user);
+        if (response.data.user) {
+          setUser(response.data.user);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +43,7 @@ const Container = () => {
   return (
     <div className="main-container">
       <Menu />
-      <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />;
+      <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />
     </div>
   );
 };
