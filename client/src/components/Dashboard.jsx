@@ -21,7 +21,7 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
   const handleEnterPressed = () => {
     const userMessage = {
       message: message,
-      user: "User",
+      username: "User",
     };
     setMessageList([...messageList, userMessage]);
     axios
@@ -29,7 +29,7 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
       .then((response) => {
         const resMessage = {
           message: response.data.generatedText,
-          user: "Bot",
+          username: "Bot",
         };
         setMessageList((prevList) => [...prevList, resMessage]);
         setInputValue("");

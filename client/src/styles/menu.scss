@@ -52,6 +52,11 @@
           transition: 200ms;
         }
       }
+      span.info {
+        align-self: center;
+        font-size: 13px;
+        cursor: pointer;
+      }
     }
   }
   .menu-body {

@@ -55,6 +55,11 @@
   color: #fff;
   transition: 200ms;
 }
+.menu-container .menu-header .sign-in-container span.info {
+  align-self: center;
+  font-size: 13px;
+  cursor: pointer;
+}
 .menu-container .menu-body {
   line-height: 1.2;
 }/*# sourceMappingURL=menu.css.map */

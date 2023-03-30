@@ -7,7 +7,7 @@ import "../styles/container.css";
 
 const Container = () => {
   const [user, setUser] = useState({
-    chatlog: [{ user: "Bot", message: "Hello" }],
+    chatlog: [{ username: "Bot", message: "Hello" }],
   });
 
   useEffect(() => {
