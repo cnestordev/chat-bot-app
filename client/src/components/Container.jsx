@@ -16,7 +16,7 @@ const Container = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get("/api/getuser");
+        const response = await axios.get("/auth/getuser");
         if (response.data.user) {
           console.log(response.data.user);
           setUser(response.data.user);
@@ -31,7 +31,7 @@ const Container = () => {
   const handleRegistration = () => {
     const newUser = { username, password };
     axios
-      .post("/api/register", newUser)
+      .post("/auth/register", newUser)
       .then((res) => {
         console.log(res);
       })
@@ -43,7 +43,7 @@ const Container = () => {
   const handleLogin = () => {
     const user = { username, password };
     axios
-      .post("/api/login", user)
+      .post("/auth/login", user)
       .then((res) => {
         console.log(res);
       })

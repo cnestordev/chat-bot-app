@@ -14,6 +14,10 @@ const LocalStrategy = require("passport-local");
 
 const MongoStore = require("connect-mongo");
 
+const authRouter = require("./routes/auth");
+const apiRouter = require("./routes/api");
+const User = require("./models/User");
+
 // ------------------- middleware setup ------------------------------------------------------------------
 
 app.use(express.static(path.join(__dirname, "./client/build")));
@@ -56,19 +60,6 @@ app.use(passport.session());
 mongoose.connect("mongodb://127.0.0.1:27017/usersDB", {
   useNewUrlParser: true,
 });
-// mongoose.set("useCreateIndex", true);
-
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  chatlog: [{ user: { type: String, required: true }, message: String }],
-});
-
-userSchema.plugin(passportLocalMongoose);
-
-const User = new mongoose.model("User", userSchema);
 
 // ------------------- passport setup ------------------------------------------------------------------
 
@@ -78,137 +69,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // ------------------- routes setup ------------------------------------------------------------------
 
-app.get("/api/getuser", async (req, res) => {
-  if (!req.user) {
-    return res.status(200).json(tempUser);
-  }
-
-  try {
-    const username = req.user.username;
-    const user = await User.findOne({ username });
-    res.json({ success: true, user });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while retrieving user data." });
-  }
-});
-
-app.post("/api/query", (req, res) => {
-  const message = req.body.message;
-  axios
-    .post(
-      "https://api.openai.com/v1/completions",
-      {
-        model: "text-davinci-003",
-        prompt: message,
-        temperature: 1,
-        max_tokens: 150,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0.6,
-        stop: [" Human:", " AI:"],
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.APIKEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    )
-    .then((response) => {
-      const generatedText = response.data.choices[0].text;
-      res.json({ success: true, generatedText });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      res.json({ success: false });
-    });
-});
-
-app.get("/api/tts", async (req, res) => {
-  const { message } = req.query;
-  try {
-    const response = await axios.get("http://api.voicerss.org/", {
-      params: {
-        key: process.env.TTSAPIKEY,
-        hl: "en-us",
-        c: "MP3",
-        v: "Mary",
-        r: "1",
-        src: message,
-      },
-    });
-    const url = response.request.res.req.res.responseUrl;
-    const responseObj = { url };
-    res.json(responseObj);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while generating TTS audio." });
-  }
-});
-
-app.put("/api/updatechatlog", async (req, res) => {
-  const { userMessage, botMessage } = req.body;
-  try {
-    const user = await User.findOne({ username: req.user.username });
-    user.chatlog.push({ user: req.user.username, message: userMessage });
-    user.chatlog.push({ user: "Bot", message: botMessage });
-    await user.save();
-    res.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating chat log." });
-  }
-});
-
-app.post("/api/register", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const user = new User({ username });
-    const newUser = await User.register(user, password);
-    await req.login(newUser, (err) => {
-      if (err) return next(err);
-      const { username, chatlog } = user;
-      res.status(201).json({
-        data: {
-          username,
-          chatlog,
-        },
-        status: 201,
-      });
-    });
-  } catch (err) {
-    res.status(401).json({ message: err.message, status: 401 });
-  }
-});
-
-app.post("/api/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(401).json({ message: "Invalid username or password" });
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      return res.json({ username: user.username, chatlog: user.chatlog });
-    });
-  })(req, res, next);
-});
-
-app.get("/api/logout", (req, res) => {
-  req.logout();
-  // route somewhere
-});
+app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 // ------------------------------ end of routes ---------------------------------------------------------------
 
