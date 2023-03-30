@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
+import Menu from "./Menu";
+
+import "../styles/container.css";
 
 const Container = () => {
   const [user, setUser] = useState(null);
@@ -33,7 +36,12 @@ const Container = () => {
     return null;
   }
 
-  return <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />;
+  return (
+    <div className="main-container">
+      <Menu />
+      <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />;
+    </div>
+  );
 };
 
 export default Container;

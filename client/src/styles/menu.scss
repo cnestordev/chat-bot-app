@@ -1,0 +1,60 @@
+.menu-container {
+  border-radius: 15px;
+  background-color: #fff;
+  color: #272727;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  padding: 40px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  .menu-header {
+    margin-bottom: 13px;
+    display: flex;
+    flex-direction: column;
+    h3 {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .sign-in-container {
+      background-color: #e4f2fe;
+      padding: 35px 20px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      input {
+        background-color: #c6e7ff;
+        border: none;
+        border-radius: 50px;
+        color: #464646;
+        padding: 15px 20px;
+        &:focus {
+          border: none;
+          outline: none;
+        }
+      }
+      button {
+        background-color: #c6e7ff;
+        border: none;
+        color: #17519c;
+        cursor: pointer;
+        border-radius: 38px;
+        font-family: "Lexend";
+        padding: 12px;
+        align-self: center;
+        width: 60%;
+        transition: 500ms;
+        &:active {
+          background-color: #17519c;
+          color: #fff;
+          transition: 200ms;
+        }
+      }
+    }
+  }
+  .menu-body {
+    line-height: 1.2;
+  }
+}
