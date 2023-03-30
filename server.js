@@ -9,30 +9,19 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
 const passport = require("passport");
-var cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const LocalStrategy = require("passport-local");
-
 const MongoStore = require("connect-mongo");
-
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
 const User = require("./models/User");
+const store = require("./config/mongoStore");
 
 // ------------------- middleware setup ------------------------------------------------------------------
 
 app.use(express.static(path.join(__dirname, "./client/build")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const store = new MongoStore({
-  mongoUrl: "mongodb://127.0.0.1:27017/usersDB",
-  secret: "These violent delights have violent ends",
-  touchAfter: 24 * 60 * 60,
-});
-
-store.on("error", (err) => {
-  console.log(err);
-});
 
 app.use(
   session({
@@ -51,7 +40,6 @@ app.use(
 );
 
 app.use(cookieParser("These violent delights have violent ends"));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
