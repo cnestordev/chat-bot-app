@@ -32,8 +32,11 @@ router.post("/query", (req, res) => {
       res.status(200).json({ success: true, generatedText });
     })
     .catch((error) => {
-      console.error("Error:", error);
-      res.status(401).json({ success: false });
+      console.error("Error:", error.response);
+      res.status(500).json({
+        success: false,
+        message: "Something went wrong with the request.",
+      });
     });
 });
 

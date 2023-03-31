@@ -35,7 +35,14 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
         tts(resMessage.message);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error.response.data.message);
+        const resMessage = {
+          message: error.response.data.message,
+          username: "Bot",
+        };
+        updateChatlog(userMessage, resMessage);
+        setMessage("");
+        setInputValue("");
       });
   };
 
