@@ -8,7 +8,6 @@ import axios from "axios";
 
 const Dashboard = ({ userLogs, updateChatlog }) => {
   const [message, setMessage] = useState("");
-  const [messageList, setMessageList] = useState(userLogs);
   const [inputValue, setInputValue] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
   const [isMute, setIsMute] = useState(true);
@@ -23,7 +22,6 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
       message: message,
       username: "User",
     };
-    setMessageList([...messageList, userMessage]);
     axios
       .post("/api/query", { message })
       .then((response) => {
@@ -31,10 +29,9 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
           message: response.data.generatedText,
           username: "Bot",
         };
-        setMessageList((prevList) => [...prevList, resMessage]);
-        setInputValue("");
-        setMessage("");
         updateChatlog(userMessage, resMessage);
+        setMessage("");
+        setInputValue("");
         tts(resMessage.message);
       })
       .catch((error) => {
@@ -55,7 +52,7 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
     <AppContext.Provider value={{ message, setMessage }}>
       <div className="dashboard-container">
         <Header isMute={isMute} toggleMute={setIsMute} />
-        <Body messages={messageList} />
+        <Body messages={userLogs} />
         <Input
           value={inputValue}
           onInputChange={handleInputChange}

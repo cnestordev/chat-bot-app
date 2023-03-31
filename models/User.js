@@ -8,9 +8,9 @@ const UserSchema = mongoose.Schema({
     required: [true, "something went wrong!"],
   },
   colorScheme: String,
-  chatlogs: [
+  chatlog: [
     {
-      user: {
+      username: {
         type: String,
         required: [true, "something went wrong!"],
       },
@@ -20,6 +20,16 @@ const UserSchema = mongoose.Schema({
       },
     },
   ],
+});
+
+UserSchema.pre("save", function (next) {
+  if (this.isNew) {
+    this.chatlog.push({
+      username: "Bot",
+      message: "Hello there! Feel free to ask me anything!",
+    });
+  }
+  next();
 });
 
 UserSchema.plugin(passportLocalMongoose);

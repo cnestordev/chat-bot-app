@@ -6,24 +6,42 @@ import Menu from "./Menu";
 import "../styles/container.css";
 
 const Container = () => {
-  const [user, setUser] = useState({
-    chatlog: [{ username: "Bot", message: "Hello" }],
-  });
+  // Registered or unregistered user account
+  const [user, setUser] = useState(null);
+  // username & password for registering or logging in
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // toggle between login and register
   const [toggle, setToggle] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  // stored chatlogs in state
+  const [chatlog, setChatlog] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get("/auth/getuser");
-        if (response.data.user) {
+        const response = await axios.get("/user/getuser");
+        if (response.status === 200) {
           console.log(response.data.user);
           setUser(response.data.user);
+          setChatlog(response.data.user.chatlog);
+        } else if (response.status === 204) {
+          const anonymousUser = {
+            username: "anon",
+            chatlog: [
+              {
+                username: "Bot",
+                message: "Hello! I am a bot. Feel free to ask me anyting!",
+              },
+            ],
+          };
+          setUser(anonymousUser);
+          setChatlog(anonymousUser.chatlog);
         }
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     getUser();
   }, []);
@@ -33,7 +51,17 @@ const Container = () => {
     axios
       .post("/auth/register", newUser)
       .then((res) => {
-        console.log(res);
+        const newUserId = res.data.user._id;
+        axios
+          .put(`/user/${newUserId}/updatechatlog`, {
+            chatlog: chatlog,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -45,7 +73,8 @@ const Container = () => {
     axios
       .post("/auth/login", user)
       .then((res) => {
-        console.log(res);
+        setUser(res.data);
+        setChatlog(res.data.chatlog);
       })
       .catch((err) => {
         console.log(err);
@@ -57,19 +86,59 @@ const Container = () => {
   };
 
   const updateChatlog = async (userMessage, botMessage) => {
-    try {
-      const response = await axios.put("/api/updatechatlog", {
-        userMessage,
-        botMessage,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+    const updatedChatlog = [
+      ...chatlog,
+      { username: user.username, message: userMessage.message },
+      { username: "Bot", message: botMessage.message },
+    ];
+
+    setChatlog(updatedChatlog);
+
+    if (user && user._id) {
+      try {
+        // Replace "anonymous" with the user's chosen username
+        const updatedChatlogWithUsername = updatedChatlog.map((entry) => {
+          if (entry.username === "anonymous" && user.username) {
+            entry.username = user.username;
+          }
+          return entry;
+        });
+
+        const response = await axios.put(`/user/${user._id}/updatechatlog`, {
+          chatlog: updatedChatlogWithUsername,
+        });
+        console.log(response);
+        setChatlog(response.data.user.chatlog);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
-  if (!user) {
-    return null;
+  // const updateChatlog = async (userMessage, botMessage) => {
+  //   const updatedChatlog = [
+  //     ...chatlog,
+  //     { username: user.username, message: userMessage.message },
+  //     { username: "Bot", message: botMessage.message },
+  //   ];
+
+  //   setChatlog(updatedChatlog);
+
+  //   if (user && user._id) {
+  //     try {
+  //       const response = await axios.put(`/user/${user._id}/updatechatlog`, {
+  //         chatlog: updatedChatlog,
+  //       });
+  //       console.log(response);
+  //       setChatlog(response.data.user.chatlog);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -84,7 +153,7 @@ const Container = () => {
         handleRegistration={handleRegistration}
         handleToggle={handleToggle}
       />
-      <Dashboard userLogs={user.chatlog} updateChatlog={updateChatlog} />
+      <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>
   );
 };

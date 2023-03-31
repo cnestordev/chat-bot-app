@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../middleware/authMiddleware");
+const axios = require("axios");
+const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/api/query", (req, res) => {
+router.post("/query", (req, res) => {
   const message = req.body.message;
   axios
     .post(
@@ -25,15 +29,15 @@ router.post("/api/query", (req, res) => {
     )
     .then((response) => {
       const generatedText = response.data.choices[0].text;
-      res.json({ success: true, generatedText });
+      res.status(200).json({ success: true, generatedText });
     })
     .catch((error) => {
       console.error("Error:", error);
-      res.json({ success: false });
+      res.status(401).json({ success: false });
     });
 });
 
-router.get("/api/tts", async (req, res) => {
+router.get("/tts", async (req, res) => {
   const { message } = req.query;
   try {
     const response = await axios.get("http://api.voicerss.org/", {
@@ -48,34 +52,13 @@ router.get("/api/tts", async (req, res) => {
     });
     const url = response.request.res.req.res.responseUrl;
     const responseObj = { url };
-    res.json(responseObj);
+    res.status(200).json(responseObj);
   } catch (error) {
     console.error(error);
     res
       .status(500)
       .json({ error: "An error occurred while generating TTS audio." });
   }
-});
-
-router.put("/api/updatechatlog", async (req, res) => {
-  const { userMessage, botMessage } = req.body;
-  try {
-    const user = await User.findOne({ username: req.user.username });
-    user.chatlog.push({ user: req.user.username, message: userMessage });
-    user.chatlog.push({ user: "Bot", message: botMessage });
-    await user.save();
-    res.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating chat log." });
-  }
-});
-
-router.get("/api/logout", (req, res) => {
-  req.logout();
-  // route somewhere
 });
 
 module.exports = router;

@@ -1,21 +1,24 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
-require("dotenv").config();
-const axios = require("axios");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
-const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const LocalStrategy = require("passport-local");
+const axios = require("axios");
 const MongoStore = require("connect-mongo");
-const authRouter = require("./routes/auth");
-const apiRouter = require("./routes/api");
+
+const dotenv = require("dotenv").config();
+
 const User = require("./models/User");
 const store = require("./config/mongoStore");
+const authRouter = require("./routes/auth");
+const apiRouter = require("./routes/api");
+const userRoute = require("./routes/user");
 
 // ------------------- middleware setup ------------------------------------------------------------------
 
@@ -43,24 +46,25 @@ app.use(cookieParser("These violent delights have violent ends"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ------------------- mongoose setup ------------------------------------------------------------------
+// ------------------- mongoose setup ------------------------------
 
 mongoose.connect("mongodb://127.0.0.1:27017/usersDB", {
   useNewUrlParser: true,
 });
 
-// ------------------- passport setup ------------------------------------------------------------------
+// ------------------- passport setup ------------------------------
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// ------------------- routes setup ------------------------------------------------------------------
+// ------------------- routes setup ---------------------------------
 
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
+app.use("/user", userRoute);
 
-// ------------------------------ end of routes ---------------------------------------------------------------
+// ------------------------------ end of routes ---------------------
 
 app.listen(port, () => {
   console.log("listening on port 5000");
