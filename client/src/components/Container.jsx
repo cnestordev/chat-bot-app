@@ -21,6 +21,9 @@ const Container = () => {
   const [chatlog, setChatlog] = useState([]);
   // when logging in or registering account
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  // error processing authentication
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const anonymousUser = useMemo(
     () => ({
@@ -59,6 +62,8 @@ const Container = () => {
 
   const handleRegistration = () => {
     setIsLoggingIn(true);
+    setErrorMessage("");
+    setHasError(false);
     const newUser = { username, password };
     axios
       .post("/auth/register", newUser)
@@ -82,6 +87,8 @@ const Container = () => {
           });
       })
       .catch((err) => {
+        setErrorMessage(err.response.data.message);
+        setHasError(true);
         setIsLoggingIn(false);
         console.log(err);
       });
@@ -89,6 +96,8 @@ const Container = () => {
 
   const handleLogin = () => {
     setIsLoggingIn(true);
+    setErrorMessage("");
+    setHasError(false);
     const user = { username, password };
     axios
       .post("/auth/login", user)
@@ -101,8 +110,9 @@ const Container = () => {
         setIsLoggingIn(false);
       })
       .catch((err) => {
+        setErrorMessage(err.response.data.message);
+        setHasError(true);
         setIsLoggingIn(false);
-        console.log(err);
       });
   };
 
@@ -115,6 +125,7 @@ const Container = () => {
         setChatlog(anonymousUser.chatlog);
       })
       .catch((err) => {
+        setHasError(true);
         console.log(err);
       });
   };
@@ -173,6 +184,8 @@ const Container = () => {
         handleLogout={handleLogout}
         isLoggingIn={isLoggingIn}
         setIsLoggingIn={setIsLoggingIn}
+        hasError={hasError}
+        errorMessage={errorMessage}
       />
       <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>

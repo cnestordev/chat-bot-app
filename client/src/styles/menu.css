@@ -189,6 +189,8 @@
 .menu-container .menu-header .user-btns-container {
   background-color: #f3f3f3;
 }
-.menu-container .menu-body {
+.menu-container .menu-error {
   line-height: 1.2;
+  font-size: 14px;
+  color: #cf6767;
 }/*# sourceMappingURL=menu.css.map */

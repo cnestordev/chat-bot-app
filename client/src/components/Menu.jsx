@@ -14,6 +14,8 @@ const Menu = ({
   handleLogout,
   isLoggingIn,
   setIsLoggingIn,
+  hasError,
+  errorMessage,
 }) => {
   return (
     <div className="menu-container">
@@ -73,8 +75,8 @@ const Menu = ({
           </button>
         </div>
       </div>
-      <div className="menu-body">
-        Sign in or create an account to save your chat history.
+      <div className={`menu-error ${hasError ? "" : "hidden"}`}>
+        {errorMessage}
       </div>
     </div>
   );
