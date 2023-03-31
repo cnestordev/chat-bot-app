@@ -36,19 +36,49 @@
         }
       }
       button {
-        background-color: #c6e7ff;
         border: none;
-        color: #17519c;
         cursor: pointer;
         border-radius: 38px;
         font-family: "Lexend";
         padding: 12px;
         align-self: center;
-        width: 60%;
         transition: 500ms;
-        &:active {
+        width: 100%;
+        &.auth-btns {
+          background-color: #c6e7ff;
+          color: #17519c;
+          width: 60%;
+        }
+        &.auth-btns:active {
           background-color: #17519c;
           color: #fff;
+          transition: 200ms;
+        }
+        &.delete-convo {
+          background-color: #ffface;
+          color: #726d13;
+        }
+        &.delete-convo:active {
+          background-color: #f7eea2;
+          color: #7c7717;
+          transition: 200ms;
+        }
+        &.delete-account {
+          background-color: #ffcece;
+          color: #cf6767;
+        }
+        &.delete-account:active {
+          background-color: #fba9a9;
+          color: #e52929;
+          transition: 200ms;
+        }
+        &.user-logout {
+          background-color: #e1e1e1;
+          color: #878787;
+        }
+        &.user-logout:active {
+          background-color: #b5b5b5;
+          color: #2e2e2e;
           transition: 200ms;
         }
       }
@@ -57,6 +87,12 @@
         font-size: 13px;
         cursor: pointer;
       }
+      &.hidden {
+        display: none;
+      }
+    }
+    .user-btns-container {
+      background-color: #f3f3f3;
     }
   }
   .menu-body {

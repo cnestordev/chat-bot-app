@@ -9,12 +9,15 @@ const Menu = ({
   handleLogin,
   handleRegistration,
   handleToggle,
+  isLoggedIn,
+  user,
+  handleLogout,
 }) => {
   return (
     <div className="menu-container">
       <div className="menu-header">
-        <h3>Sign in</h3>
-        <div className="sign-in-container">
+        <h3>{isLoggedIn ? user.username : "Sign in"}</h3>
+        <div className={`sign-in-container ${isLoggedIn ? "hidden" : ""}`}>
           <input
             type="text"
             placeholder="username"
@@ -36,12 +39,28 @@ const Menu = ({
             </>
           ) : (
             <>
-              <button onClick={() => handleLogin()}>Login</button>
+              <button className="auth-btns" onClick={() => handleLogin()}>
+                Login
+              </button>
               <span onClick={() => handleToggle()} className="info">
                 Register an account
               </span>
             </>
           )}
+        </div>
+        <div
+          className={`sign-in-container user-btns-container ${
+            !isLoggedIn ? "hidden" : ""
+          }`}
+        >
+          <button className="user-btns delete-convo">Delete convo</button>
+          <button className="user-btns delete-account">Delete account</button>
+          <button
+            onClick={() => handleLogout()}
+            className="user-btns user-logout"
+          >
+            Logout
+          </button>
         </div>
       </div>
       <div className="menu-body">

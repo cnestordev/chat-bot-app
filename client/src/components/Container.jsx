@@ -8,6 +8,8 @@ import "../styles/container.css";
 const Container = () => {
   // Registered or unregistered user account
   const [user, setUser] = useState(null);
+  // track if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // username & password for registering or logging in
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +19,16 @@ const Container = () => {
   // stored chatlogs in state
   const [chatlog, setChatlog] = useState([]);
 
+  const anonymousUser = {
+    username: "anon",
+    chatlog: [
+      {
+        username: "Bot",
+        message: "Hello! I am a bot. Feel free to ask me anyting!",
+      },
+    ],
+  };
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -25,16 +37,9 @@ const Container = () => {
           console.log(response.data.user);
           setUser(response.data.user);
           setChatlog(response.data.user.chatlog);
+          setIsLoggedIn(true);
         } else if (response.status === 204) {
-          const anonymousUser = {
-            username: "anon",
-            chatlog: [
-              {
-                username: "Bot",
-                message: "Hello! I am a bot. Feel free to ask me anyting!",
-              },
-            ],
-          };
+          setIsLoggedIn(false);
           setUser(anonymousUser);
           setChatlog(anonymousUser.chatlog);
         }
@@ -51,6 +56,10 @@ const Container = () => {
     axios
       .post("/auth/register", newUser)
       .then((res) => {
+        setIsLoggedIn(true);
+        setUser(res.data.user);
+        setUsername("");
+        setPassword("");
         const newUserId = res.data.user._id;
         axios
           .put(`/user/${newUserId}/updatechatlog`, {
@@ -75,6 +84,22 @@ const Container = () => {
       .then((res) => {
         setUser(res.data);
         setChatlog(res.data.chatlog);
+        setIsLoggedIn(true);
+        setUsername("");
+        setPassword("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleLogout = () => {
+    axios
+      .post("/auth/logout")
+      .then((res) => {
+        setUser(anonymousUser);
+        setIsLoggedIn(false);
+        setChatlog(anonymousUser.chatlog);
       })
       .catch((err) => {
         console.log(err);
@@ -115,28 +140,6 @@ const Container = () => {
     }
   };
 
-  // const updateChatlog = async (userMessage, botMessage) => {
-  //   const updatedChatlog = [
-  //     ...chatlog,
-  //     { username: user.username, message: userMessage.message },
-  //     { username: "Bot", message: botMessage.message },
-  //   ];
-
-  //   setChatlog(updatedChatlog);
-
-  //   if (user && user._id) {
-  //     try {
-  //       const response = await axios.put(`/user/${user._id}/updatechatlog`, {
-  //         chatlog: updatedChatlog,
-  //       });
-  //       console.log(response);
-  //       setChatlog(response.data.user.chatlog);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -152,6 +155,9 @@ const Container = () => {
         handleLogin={handleLogin}
         handleRegistration={handleRegistration}
         handleToggle={handleToggle}
+        isLoggedIn={isLoggedIn}
+        user={user}
+        handleLogout={handleLogout}
       />
       <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>

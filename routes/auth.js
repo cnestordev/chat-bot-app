@@ -42,9 +42,14 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  // route somewhere
+router.post("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err)
+      return res
+        .status(500)
+        .json({ message: "something went wrong with logging you out" });
+    res.status(204).json({ message: "successfully logged out" });
+  });
 });
 
 module.exports = router;

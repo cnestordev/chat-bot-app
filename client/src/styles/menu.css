@@ -39,26 +39,62 @@
   outline: none;
 }
 .menu-container .menu-header .sign-in-container button {
-  background-color: #c6e7ff;
   border: none;
-  color: #17519c;
   cursor: pointer;
   border-radius: 38px;
   font-family: "Lexend";
   padding: 12px;
   align-self: center;
-  width: 60%;
   transition: 500ms;
+  width: 100%;
 }
-.menu-container .menu-header .sign-in-container button:active {
+.menu-container .menu-header .sign-in-container button.auth-btns {
+  background-color: #c6e7ff;
+  color: #17519c;
+  width: 60%;
+}
+.menu-container .menu-header .sign-in-container button.auth-btns:active {
   background-color: #17519c;
   color: #fff;
+  transition: 200ms;
+}
+.menu-container .menu-header .sign-in-container button.delete-convo {
+  background-color: #ffface;
+  color: #726d13;
+}
+.menu-container .menu-header .sign-in-container button.delete-convo:active {
+  background-color: #f7eea2;
+  color: #7c7717;
+  transition: 200ms;
+}
+.menu-container .menu-header .sign-in-container button.delete-account {
+  background-color: #ffcece;
+  color: #cf6767;
+}
+.menu-container .menu-header .sign-in-container button.delete-account:active {
+  background-color: #fba9a9;
+  color: #e52929;
+  transition: 200ms;
+}
+.menu-container .menu-header .sign-in-container button.user-logout {
+  background-color: #e1e1e1;
+  color: #878787;
+}
+.menu-container .menu-header .sign-in-container button.user-logout:active {
+  background-color: #b5b5b5;
+  color: #2e2e2e;
   transition: 200ms;
 }
 .menu-container .menu-header .sign-in-container span.info {
   align-self: center;
   font-size: 13px;
   cursor: pointer;
+}
+.menu-container .menu-header .sign-in-container.hidden {
+  display: none;
+}
+.menu-container .menu-header .user-btns-container {
+  background-color: #f3f3f3;
 }
 .menu-container .menu-body {
   line-height: 1.2;
