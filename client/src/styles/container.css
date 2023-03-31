@@ -5,8 +5,8 @@
   width: 100%;
 }
 .main-container .menu-container {
-  flex-basis: 14%;
+  flex-basis: 15%;
 }
 .main-container .dashboard-container {
-  flex-basis: 70%;
+  flex-basis: 55%;
 }/*# sourceMappingURL=container.css.map */

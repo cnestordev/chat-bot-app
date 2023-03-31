@@ -12,6 +12,8 @@ const Menu = ({
   isLoggedIn,
   user,
   handleLogout,
+  isLoggingIn,
+  setIsLoggingIn,
 }) => {
   return (
     <div className="menu-container">
@@ -40,7 +42,15 @@ const Menu = ({
           ) : (
             <>
               <button className="auth-btns" onClick={() => handleLogin()}>
-                Login
+                <div
+                  className={`dot-elastic ${isLoggingIn ? "" : "hidden"}`}
+                ></div>
+                <span
+                  className={`${isLoggingIn ? "hidden" : ""}`}
+                  onClick={() => setIsLoggingIn(true)}
+                >
+                  Login
+                </span>
               </button>
               <span onClick={() => handleToggle()} className="info">
                 Register an account

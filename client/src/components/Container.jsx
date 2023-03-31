@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Dashboard from "./Dashboard";
 import Menu from "./Menu";
 
@@ -15,19 +15,25 @@ const Container = () => {
   const [password, setPassword] = useState("");
   // toggle between login and register
   const [toggle, setToggle] = useState(false);
+  // when page is loading
   const [isLoading, setIsLoading] = useState(true);
   // stored chatlogs in state
   const [chatlog, setChatlog] = useState([]);
+  // when logging in or registering account
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const anonymousUser = {
-    username: "anon",
-    chatlog: [
-      {
-        username: "Bot",
-        message: "Hello! I am a bot. Feel free to ask me anyting!",
-      },
-    ],
-  };
+  const anonymousUser = useMemo(
+    () => ({
+      username: "anon",
+      chatlog: [
+        {
+          username: "Bot",
+          message: "Hello! I am a bot. Feel free to ask me anyting!",
+        },
+      ],
+    }),
+    []
+  );
 
   useEffect(() => {
     const getUser = async () => {
@@ -49,9 +55,10 @@ const Container = () => {
       setIsLoading(false);
     };
     getUser();
-  }, []);
+  }, [anonymousUser]);
 
   const handleRegistration = () => {
+    setIsLoggingIn(true);
     const newUser = { username, password };
     axios
       .post("/auth/register", newUser)
@@ -60,6 +67,8 @@ const Container = () => {
         setUser(res.data.user);
         setUsername("");
         setPassword("");
+        setIsLoggingIn(false);
+        setToggle(false);
         const newUserId = res.data.user._id;
         axios
           .put(`/user/${newUserId}/updatechatlog`, {
@@ -73,11 +82,13 @@ const Container = () => {
           });
       })
       .catch((err) => {
+        setIsLoggingIn(false);
         console.log(err);
       });
   };
 
   const handleLogin = () => {
+    setIsLoggingIn(true);
     const user = { username, password };
     axios
       .post("/auth/login", user)
@@ -87,8 +98,10 @@ const Container = () => {
         setIsLoggedIn(true);
         setUsername("");
         setPassword("");
+        setIsLoggingIn(false);
       })
       .catch((err) => {
+        setIsLoggingIn(false);
         console.log(err);
       });
   };
@@ -158,6 +171,8 @@ const Container = () => {
         isLoggedIn={isLoggedIn}
         user={user}
         handleLogout={handleLogout}
+        isLoggingIn={isLoggingIn}
+        setIsLoggingIn={setIsLoggingIn}
       />
       <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>

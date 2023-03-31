@@ -1,3 +1,93 @@
+.dot-elastic {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #538bbb;
+  animation: dot-elastic 1s infinite linear;
+}
+
+.dot-elastic::before,
+.dot-elastic::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-elastic::before {
+  left: -15px;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #538bbb;
+  animation: dot-elastic-before 1s infinite linear;
+}
+
+.dot-elastic::after {
+  left: 15px;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #538bbb;
+  animation: dot-elastic-after 1s infinite linear;
+}
+
+@keyframes dot-elastic-before {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1, 1.2);
+  }
+  50% {
+    transform: scale(1, 0.67);
+  }
+  75% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes dot-elastic {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1, 1.2);
+  }
+  75% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes dot-elastic-after {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1, 0.67);
+  }
+  75% {
+    transform: scale(1, 1.2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.hidden {
+  display: none;
+}
+
 .menu-container {
   border-radius: 15px;
   background-color: #fff;
@@ -44,14 +134,17 @@
   border-radius: 38px;
   font-family: "Lexend";
   padding: 12px;
+  min-height: 40px;
   align-self: center;
   transition: 500ms;
-  width: 100%;
+  width: 80%;
 }
 .menu-container .menu-header .sign-in-container button.auth-btns {
   background-color: #c6e7ff;
   color: #17519c;
-  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .menu-container .menu-header .sign-in-container button.auth-btns:active {
   background-color: #17519c;

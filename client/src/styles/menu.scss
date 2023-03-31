@@ -1,3 +1,5 @@
+@use "./shared.scss";
+
 .menu-container {
   border-radius: 15px;
   background-color: #fff;
@@ -41,13 +43,16 @@
         border-radius: 38px;
         font-family: "Lexend";
         padding: 12px;
+        min-height: 40px;
         align-self: center;
         transition: 500ms;
-        width: 100%;
+        width: 80%;
         &.auth-btns {
           background-color: #c6e7ff;
           color: #17519c;
-          width: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         &.auth-btns:active {
           background-color: #17519c;
