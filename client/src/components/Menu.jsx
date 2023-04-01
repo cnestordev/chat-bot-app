@@ -16,6 +16,8 @@ const Menu = ({
   setIsLoggingIn,
   hasError,
   errorMessage,
+  handleDeleteChatLog,
+  handleDeleteUser,
 }) => {
   return (
     <div className="menu-container">
@@ -65,8 +67,18 @@ const Menu = ({
             !isLoggedIn ? "hidden" : ""
           }`}
         >
-          <button className="user-btns delete-convo">Delete convo</button>
-          <button className="user-btns delete-account">Delete account</button>
+          <button
+            onClick={() => handleDeleteChatLog()}
+            className="user-btns delete-convo"
+          >
+            Delete convo
+          </button>
+          <button
+            onClick={() => handleDeleteUser()}
+            className="user-btns delete-account"
+          >
+            Delete account
+          </button>
           <button
             onClick={() => handleLogout()}
             className="user-btns user-logout"

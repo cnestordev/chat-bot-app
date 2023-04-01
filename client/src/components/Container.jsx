@@ -43,7 +43,6 @@ const Container = () => {
       try {
         const response = await axios.get("/user/getuser");
         if (response.status === 200) {
-          console.log(response.data.user);
           setUser(response.data.user);
           setChatlog(response.data.user.chatlog);
           setIsLoggedIn(true);
@@ -152,7 +151,7 @@ const Container = () => {
           }
           return entry;
         });
-
+        console.log(updatedChatlogWithUsername);
         const response = await axios.put(`/user/${user._id}/updatechatlog`, {
           chatlog: updatedChatlogWithUsername,
         });
@@ -161,6 +160,28 @@ const Container = () => {
       } catch (error) {
         console.error(error);
       }
+    }
+  };
+
+  const handleDeleteChatLog = async () => {
+    if (user && user._id) {
+      try {
+        const response = await axios.put(`/user/${user._id}/deletechatlog`);
+        setChatlog(response.data.user.chatlog);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      await axios.delete(`/user/${user._id}/deleteuser`);
+      setUser(anonymousUser);
+      setIsLoggedIn(false);
+      setChatlog(anonymousUser.chatlog);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -186,6 +207,8 @@ const Container = () => {
         setIsLoggingIn={setIsLoggingIn}
         hasError={hasError}
         errorMessage={errorMessage}
+        handleDeleteChatLog={handleDeleteChatLog}
+        handleDeleteUser={handleDeleteUser}
       />
       <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>
