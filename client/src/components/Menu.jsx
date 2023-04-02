@@ -1,4 +1,7 @@
+import { useState } from "react";
 import "../styles/menu.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Menu = ({
   username,
@@ -19,6 +22,12 @@ const Menu = ({
   handleDeleteChatLog,
   handleDeleteUser,
 }) => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleTogglePassword = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div className="menu-container">
       <div className="menu-header">
@@ -30,12 +39,21 @@ const Menu = ({
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <span className="password-container">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="password-field"
+              maxLength={15}
+            />
+            <FontAwesomeIcon
+              className="icon"
+              icon={passwordVisible ? faEyeSlash : faEye}
+              onClick={handleTogglePassword}
+            />
+          </span>
           {toggle ? (
             <>
               <button onClick={() => handleRegistration()}>Register</button>

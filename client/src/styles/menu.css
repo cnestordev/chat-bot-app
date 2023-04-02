@@ -128,6 +128,20 @@
   border: none;
   outline: none;
 }
+.menu-container .menu-header .sign-in-container .password-container {
+  position: relative;
+}
+.menu-container .menu-header .sign-in-container .password-container input.password-field {
+  padding-right: 8%;
+}
+.menu-container .menu-header .sign-in-container .password-container svg {
+  color: #17519c;
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 .menu-container .menu-header .sign-in-container button {
   border: none;
   cursor: pointer;
