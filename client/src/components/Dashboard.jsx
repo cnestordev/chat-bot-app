@@ -6,7 +6,7 @@ import Input from "./Input";
 import AppContext from "../context/AppContext";
 import axios from "axios";
 
-const Dashboard = ({ userLogs, updateChatlog }) => {
+const Dashboard = ({ userLogs, updateChatlog, user }) => {
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
@@ -17,11 +17,14 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
     setInputValue(event.target.value);
   };
 
-  const handleEnterPressed = () => {
+  const handleEnterPressed = async () => {
     const userMessage = {
       message: message,
-      username: "User",
+      username: user.username,
     };
+    await updateChatlog(userMessage);
+    setMessage("");
+    setInputValue("");
     axios
       .post("/api/query", { message })
       .then((response) => {
@@ -29,9 +32,7 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
           message: response.data.generatedText,
           username: "Bot",
         };
-        updateChatlog(userMessage, resMessage);
-        setMessage("");
-        setInputValue("");
+        updateChatlog(resMessage);
         tts(resMessage.message);
       })
       .catch((error) => {
@@ -40,7 +41,7 @@ const Dashboard = ({ userLogs, updateChatlog }) => {
           message: error.response.data.message,
           username: "Bot",
         };
-        updateChatlog(userMessage, resMessage);
+        updateChatlog(resMessage);
         setMessage("");
         setInputValue("");
       });

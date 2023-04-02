@@ -74,9 +74,14 @@ const Container = () => {
         setIsLoggingIn(false);
         setToggle(false);
         const newUserId = res.data.user._id;
+        const newUsername = res.data.user.username;
+        const updatedChatlogWithUsername = addUsernameToChatlogs(
+          chatlog,
+          newUsername
+        );
         axios
           .put(`/user/${newUserId}/updatechatlog`, {
-            chatlog: chatlog,
+            chatlog: updatedChatlogWithUsername,
           })
           .then((res) => {
             console.log(res);
@@ -89,7 +94,6 @@ const Container = () => {
         setErrorMessage(err.response.data.message);
         setHasError(true);
         setIsLoggingIn(false);
-        console.log(err);
       });
   };
 
@@ -133,34 +137,49 @@ const Container = () => {
     setToggle(!toggle);
   };
 
-  const updateChatlog = async (userMessage, botMessage) => {
-    const updatedChatlog = [
-      ...chatlog,
-      { username: user.username, message: userMessage.message },
-      { username: "Bot", message: botMessage.message },
-    ];
-
-    setChatlog(updatedChatlog);
-
-    if (user && user._id) {
-      try {
-        // Replace "anonymous" with the user's chosen username
-        const updatedChatlogWithUsername = updatedChatlog.map((entry) => {
-          if (entry.username === "anonymous" && user.username) {
-            entry.username = user.username;
-          }
-          return entry;
-        });
-        console.log(updatedChatlogWithUsername);
-        const response = await axios.put(`/user/${user._id}/updatechatlog`, {
-          chatlog: updatedChatlogWithUsername,
-        });
-        console.log(response);
-        setChatlog(response.data.user.chatlog);
-      } catch (error) {
-        console.error(error);
+  // Replace "anonymous" with the user's chosen username
+  const addUsernameToChatlogs = (updatedChatlog, username) => {
+    const updatedChatlogWithUsername = updatedChatlog.map((entry) => {
+      if (entry.username === "anon") {
+        entry.username = username;
       }
-    }
+      return entry;
+    });
+    return updatedChatlogWithUsername;
+  };
+
+  const updateChatlog = (newMessage) => {
+    return new Promise((resolve) => {
+      setChatlog((prevChatlog) => {
+        const updatedChatlog = [
+          ...prevChatlog,
+          { username: newMessage.username, message: newMessage.message },
+        ];
+
+        if (user && user._id) {
+          try {
+            axios
+              .put(`/user/${user._id}/updatechatlog`, {
+                chatlog: updatedChatlog,
+              })
+              .then(() => {
+                resolve();
+              })
+              .catch((error) => {
+                console.error(error);
+                resolve();
+              });
+          } catch (error) {
+            console.error(error);
+            resolve();
+          }
+        } else {
+          resolve();
+        }
+
+        return updatedChatlog;
+      });
+    });
   };
 
   const handleDeleteChatLog = async () => {
@@ -210,7 +229,7 @@ const Container = () => {
         handleDeleteChatLog={handleDeleteChatLog}
         handleDeleteUser={handleDeleteUser}
       />
-      <Dashboard userLogs={chatlog} updateChatlog={updateChatlog} />
+      <Dashboard user={user} userLogs={chatlog} updateChatlog={updateChatlog} />
     </div>
   );
 };

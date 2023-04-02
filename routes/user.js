@@ -25,7 +25,6 @@ router.get("/getuser", checkAuth, async (req, res) => {
 });
 
 router.put("/:id/updatechatlog", checkAuth, async (req, res) => {
-  console.log(req.body.chatlog);
   const { chatlog } = req.body;
   try {
     const user = await User.findOneAndUpdate(
@@ -33,7 +32,6 @@ router.put("/:id/updatechatlog", checkAuth, async (req, res) => {
       { $set: { chatlog } },
       { new: true }
     );
-    console.log(user);
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.error(error);
