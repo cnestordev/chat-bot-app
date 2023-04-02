@@ -48,7 +48,9 @@ app.use(passport.session());
 
 // ------------------- mongoose setup ------------------------------
 
-mongoose.connect("mongodb://127.0.0.1:27017/usersDB", {
+const mongoUrl = process.env.MONGO_URL;
+
+mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
 });
 
