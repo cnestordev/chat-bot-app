@@ -210,26 +210,34 @@ const Container = () => {
 
   return (
     <div className="main-container">
-      <Menu
-        username={username}
-        password={password}
-        setUsername={setUsername}
-        setPassword={setPassword}
-        toggle={toggle}
-        handleLogin={handleLogin}
-        handleRegistration={handleRegistration}
-        handleToggle={handleToggle}
-        isLoggedIn={isLoggedIn}
-        user={user}
-        handleLogout={handleLogout}
-        isLoggingIn={isLoggingIn}
-        setIsLoggingIn={setIsLoggingIn}
-        hasError={hasError}
-        errorMessage={errorMessage}
-        handleDeleteChatLog={handleDeleteChatLog}
-        handleDeleteUser={handleDeleteUser}
-      />
-      <Dashboard user={user} userLogs={chatlog} updateChatlog={updateChatlog} />
+      <div className="left">
+        <Menu
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          toggle={toggle}
+          handleLogin={handleLogin}
+          handleRegistration={handleRegistration}
+          handleToggle={handleToggle}
+          isLoggedIn={isLoggedIn}
+          user={user}
+          handleLogout={handleLogout}
+          isLoggingIn={isLoggingIn}
+          setIsLoggingIn={setIsLoggingIn}
+          hasError={hasError}
+          errorMessage={errorMessage}
+          handleDeleteChatLog={handleDeleteChatLog}
+          handleDeleteUser={handleDeleteUser}
+        />
+      </div>
+      <div className="right">
+        <Dashboard
+          user={user}
+          userLogs={chatlog}
+          updateChatlog={updateChatlog}
+        />
+      </div>
     </div>
   );
 };

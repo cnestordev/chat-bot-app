@@ -1,12 +1,57 @@
 .main-container {
+  height: 100%;
+  align-items: center;
+}
+.main-container .left {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  animation: slideIn 300ms forwards;
+}
+.main-container .right {
+  animation: centerIn 300ms forwards;
+  height: 100%;
   display: flex;
-  gap: 8%;
-  padding: 0 100px;
-  width: 100%;
+  align-items: center;
 }
-.main-container .menu-container {
-  flex-basis: 15%;
+@media (max-width: 1200px) {
+  .main-container .left {
+    animation: slideOut 300ms forwards;
+  }
+  .main-container .right {
+    animation: centerOut 300ms forwards;
+  }
 }
-.main-container .dashboard-container {
-  flex-basis: 55%;
+
+@keyframes slideOut {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: -330px;
+  }
+}
+@keyframes slideIn {
+  0% {
+    left: -330px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@keyframes centerOut {
+  0% {
+    margin-left: 25%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes centerIn {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 25%;
+  }
 }/*# sourceMappingURL=container.css.map */

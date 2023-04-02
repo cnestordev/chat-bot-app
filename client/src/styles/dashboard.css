@@ -7,15 +7,24 @@
   flex-direction: column;
   justify-content: center;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: 90%;
 }
 .dashboard-container audio {
   opacity: 0;
   position: absolute;
+}
+.dashboard-container .header-container,
+.dashboard-container .input-container {
+  flex: 0 0 6%;
+}
+.dashboard-container .body-container {
+  flex: 1 1 auto;
 }
 
 @media (max-width: 768px) {
   .dashboard-container {
     width: 100%;
     margin: 0;
+    height: 100%;
   }
 }/*# sourceMappingURL=dashboard.css.map */
