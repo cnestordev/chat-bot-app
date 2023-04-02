@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const MongoStore = MongoStoreFactory;
 
 const store = MongoStore.create({
-  mongoUrl: "mongodb://127.0.0.1:27017/usersDB",
+  mongoUrl: process.env.MONGO_URL,
   secret: "These violent delights have violent ends",
   touchAfter: 24 * 60 * 60,
 });
