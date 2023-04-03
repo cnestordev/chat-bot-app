@@ -38,7 +38,7 @@ const Menu = ({
         <FontAwesomeIcon className="icon" icon={faUserCircle} />
         <h3>{isLoggedIn ? user.username : "Sign in"}</h3>
       </div>
-      <div className="menu-body">
+      <div className={`menu-body ${isLoggedIn ? "hidden" : ""}`}>
         <div className="input-field username-input">
           <input
             type="text"
@@ -90,7 +90,32 @@ const Menu = ({
               </span>
             </>
           )}
+          <div className={`menu-error ${hasError ? "" : "hidden"}`}>
+            {errorMessage}
+          </div>
         </div>
+      </div>
+      <div
+        className={`menu-body account-settings ${!isLoggedIn ? "hidden" : ""}`}
+      >
+        <button
+          onClick={() => handleDeleteChatLog()}
+          className="user-btns delete-convo"
+        >
+          Delete convo
+        </button>
+        <button
+          onClick={() => handleDeleteUser()}
+          className="user-btns delete-account"
+        >
+          Delete account
+        </button>
+        <button
+          onClick={() => handleLogout()}
+          className="user-btns user-logout"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
