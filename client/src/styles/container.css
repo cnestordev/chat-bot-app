@@ -7,6 +7,9 @@
   position: fixed;
   top: 0;
   animation: slideIn 300ms forwards;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 .main-container .right {
   animation: centerIn 300ms forwards;

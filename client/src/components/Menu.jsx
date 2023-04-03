@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "../styles/menu.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faEyeSlash,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Menu = ({
   username,
@@ -31,82 +35,62 @@ const Menu = ({
   return (
     <div className="menu-container">
       <div className="menu-header">
+        <FontAwesomeIcon className="icon" icon={faUserCircle} />
         <h3>{isLoggedIn ? user.username : "Sign in"}</h3>
-        <div className={`sign-in-container ${isLoggedIn ? "hidden" : ""}`}>
+      </div>
+      <div className="menu-body">
+        <div className="input-field username-input">
           <input
             type="text"
             placeholder="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <span className="password-container">
-            <input
-              type={passwordVisible ? "text" : "password"}
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="password-field"
-              maxLength={15}
-            />
-            <FontAwesomeIcon
-              className="icon"
-              icon={passwordVisible ? faEyeSlash : faEye}
-              onClick={handleTogglePassword}
-            />
-          </span>
+        </div>
+        <div className="input-field password-input">
+          <input
+            type={passwordVisible ? "text" : "password"}
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="password-field"
+            maxLength={15}
+          />
+          <FontAwesomeIcon
+            className="icon"
+            icon={passwordVisible ? faEyeSlash : faEye}
+            onClick={handleTogglePassword}
+          />
+        </div>
+        <div className="login-btns">
           {toggle ? (
             <>
-              <button onClick={() => handleRegistration()}>Register</button>
+              <button onClick={() => handleRegistration()}>
+                <span
+                  className={`dot-elastic ${isLoggingIn ? "" : "hidden"}`}
+                ></span>
+                <span className={`${isLoggingIn ? "hidden" : ""}`}>
+                  Register
+                </span>
+              </button>
               <span onClick={() => handleToggle()} className="info">
-                Log into existing account
+                Create a new account
               </span>
             </>
           ) : (
             <>
-              <button className="auth-btns" onClick={() => handleLogin()}>
-                <div
-                  className={`dot-elastic ${isLoggingIn ? "" : "hidden"}`}
-                ></div>
+              <button onClick={() => handleLogin()}>
                 <span
-                  className={`${isLoggingIn ? "hidden" : ""}`}
-                  onClick={() => setIsLoggingIn(true)}
-                >
-                  Login
-                </span>
+                  className={`dot-elastic ${isLoggingIn ? "" : "hidden"}`}
+                ></span>
+                <span className={`${isLoggingIn ? "hidden" : ""}`}>Login</span>
               </button>
               <span onClick={() => handleToggle()} className="info">
-                Register an account
+                Log into existing account
               </span>
             </>
           )}
         </div>
-        <div
-          className={`sign-in-container user-btns-container ${
-            !isLoggedIn ? "hidden" : ""
-          }`}
-        >
-          <button
-            onClick={() => handleDeleteChatLog()}
-            className="user-btns delete-convo"
-          >
-            Delete convo
-          </button>
-          <button
-            onClick={() => handleDeleteUser()}
-            className="user-btns delete-account"
-          >
-            Delete account
-          </button>
-          <button
-            onClick={() => handleLogout()}
-            className="user-btns user-logout"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
-      <div className={`menu-error ${hasError ? "" : "hidden"}`}>
-        {errorMessage}
       </div>
     </div>
   );
