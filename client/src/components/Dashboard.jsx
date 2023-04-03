@@ -28,6 +28,7 @@ const Dashboard = ({ userLogs, updateChatlog, user }) => {
     axios
       .post("/api/query", { message })
       .then((response) => {
+        console.log(response.data);
         const resMessage = {
           message: response.data.generatedText,
           username: "Bot",

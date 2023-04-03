@@ -29,7 +29,9 @@ router.post("/query", (req, res) => {
     )
     .then((response) => {
       const generatedText = response.data.choices[0].text;
-      res.status(200).json({ success: true, generatedText });
+      res
+        .status(200)
+        .json({ extra: response.data, success: true, generatedText });
     })
     .catch((error) => {
       console.error("Error:", error.response);
