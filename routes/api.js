@@ -4,6 +4,7 @@ const checkAuth = require("../middleware/authMiddleware");
 const axios = require("axios");
 const User = require("../models/User");
 const authMiddleware = require("../middleware/authMiddleware");
+const { BOT } = require("../config/constants");
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -12,12 +13,19 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 router.post("/image-query", async (req, res) => {
+  const message = req.body.message;
   const response = await openai.createImage({
-    prompt: "A cute baby sea otter",
+    prompt: message,
     n: 1,
     size: "1024x1024",
   });
-  res.status(200).json(response.data);
+  const url = response.data.data[0].url;
+  const responseMessage = {
+    user: BOT,
+    message: url,
+    isMedia: true,
+  };
+  res.status(200).json({ success: true, responseMessage });
 });
 
 router.post("/query", (req, res) => {
@@ -44,13 +52,23 @@ router.post("/query", (req, res) => {
     )
     .then((response) => {
       const generatedText = response.data.choices[0].text;
-      res.status(200).json({ success: true, generatedText });
+      const responseMessage = {
+        username: BOT,
+        message: generatedText,
+        isMedia: false,
+      };
+      res.status(200).json({ success: true, responseMessage });
     })
     .catch((error) => {
       console.error("Error:", error.response);
+      const responseMessage = {
+        username: BOT,
+        message: "Something went wrong with the request.",
+        isMedia: false,
+      };
       res.status(500).json({
         success: false,
-        message: "Something went wrong with the request.",
+        responseMessage,
       });
     });
 });
@@ -70,12 +88,13 @@ router.get("/tts", async (req, res) => {
     });
     const url = response.request.res.req.res.responseUrl;
     const responseObj = { url };
-    res.status(200).json(responseObj);
+    res.status(200).json({ success: true, responseObj });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while generating TTS audio." });
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while generating TTS audio.",
+    });
   }
 });
 

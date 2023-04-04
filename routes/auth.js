@@ -14,10 +14,15 @@ router.post("/register", async (req, res) => {
       if (err) {
         return next(err);
       }
-      return res.status(201).json({ user: newUser });
+      const newUserObj = {
+        username: newUser.username,
+        chatlog: newUser.chatlog,
+        _id: newUser._id,
+      };
+      return res.status(201).json({ success: true, newUserObj });
     });
   } catch (err) {
-    res.status(401).json({ message: err.message, status: 401 });
+    res.status(401).json({ message: err.message, success: false });
   }
 });
 
@@ -27,16 +32,22 @@ router.post("/login", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid username or password" });
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
-      return res.status(200).json({
+      const signedInUser = {
         username: user.username,
         chatlog: user.chatlog,
         _id: user._id,
+      };
+      return res.status(200).json({
+        success: true,
+        signedInUser,
       });
     });
   })(req, res, next);
@@ -45,10 +56,11 @@ router.post("/login", (req, res, next) => {
 router.post("/logout", (req, res) => {
   req.logout((err) => {
     if (err)
-      return res
-        .status(500)
-        .json({ message: "something went wrong with logging you out" });
-    res.status(204).json({ message: "successfully logged out" });
+      return res.status(500).json({
+        success: false,
+        message: "something went wrong with logging you out",
+      });
+    res.status(200).json({ success: true, message: "successfully logged out" });
   });
 });
 

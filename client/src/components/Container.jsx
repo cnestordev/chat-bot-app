@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard";
 import Menu from "./Menu";
 
 import "../styles/container.css";
+import { BOT } from "../config/constants";
 
 const Container = () => {
   // Registered or unregistered user account
@@ -32,10 +33,11 @@ const Container = () => {
       username: "anon",
       chatlog: [
         {
-          username: "Bot",
+          username: BOT,
           message: "Hello! I am a bot. Feel free to ask me anyting!",
         },
       ],
+      isMedia: false,
     }),
     []
   );
@@ -74,13 +76,13 @@ const Container = () => {
       .post("/auth/register", newUser)
       .then((res) => {
         setIsLoggedIn(true);
-        setUser(res.data.user);
+        setUser(res.data.newUserObj);
         setUsername("");
         setPassword("");
         setIsLoggingIn(false);
         setToggle(false);
-        const newUserId = res.data.user._id;
-        const newUsername = res.data.user.username;
+        const newUserId = res.data.newUserObj._id;
+        const newUsername = res.data.newUserObj.username;
         const updatedChatlogWithUsername = addUsernameToChatlogs(
           chatlog,
           newUsername
@@ -90,7 +92,7 @@ const Container = () => {
             chatlog: updatedChatlogWithUsername,
           })
           .then((res) => {
-            console.log(res);
+            setChatlog(res.data.user.chatlog);
           })
           .catch((err) => {
             console.log(err);
@@ -111,8 +113,8 @@ const Container = () => {
     axios
       .post("/auth/login", user)
       .then((res) => {
-        setUser(res.data);
-        setChatlog(res.data.chatlog);
+        setUser(res.data.signedInUser);
+        setChatlog(res.data.signedInUser.chatlog);
         setIsLoggedIn(true);
         setUsername("");
         setPassword("");
@@ -159,7 +161,11 @@ const Container = () => {
       setChatlog((prevChatlog) => {
         const updatedChatlog = [
           ...prevChatlog,
-          { username: newMessage.username, message: newMessage.message },
+          {
+            username: newMessage.username,
+            message: newMessage.message,
+            isMedia: newMessage.isMedia,
+          },
         ];
 
         if (user && user._id) {
@@ -201,7 +207,7 @@ const Container = () => {
 
   const handleDeleteUser = async () => {
     try {
-      await axios.delete(`/user/${user._id}/deleteuser`);
+      const response = await axios.delete(`/user/${user._id}/deleteuser`);
       setUser(anonymousUser);
       setIsLoggedIn(false);
       setChatlog(anonymousUser.chatlog);

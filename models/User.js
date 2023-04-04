@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
 const passportLocalMongoose = require("passport-local-mongoose");
+const { BOT } = require("../config/constants");
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -18,6 +18,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: [true, "something went wrong!"],
       },
+      isMedia: {
+        type: Boolean,
+        required: [true, "something went wrong!"],
+      },
     },
   ],
 });
@@ -25,7 +29,7 @@ const UserSchema = mongoose.Schema({
 UserSchema.pre("save", function (next) {
   if (this.isNew) {
     this.chatlog.push({
-      username: "Bot",
+      username: BOT,
       message: "Hello there! Feel free to ask me anything!",
     });
   }

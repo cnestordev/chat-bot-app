@@ -7,20 +7,19 @@ const authMiddleware = require("../middleware/authMiddleware");
 require("dotenv").config();
 const passport = require("passport");
 
-router.get("/getuser", checkAuth, async (req, res) => {
-  if (!req.user) {
-    return res.status(200).json({ message: "NO user is logged in!!" });
-  }
+const { BOT } = require("../config/constants");
 
+router.get("/getuser", checkAuth, async (req, res) => {
   try {
     const username = req.user.username;
     const user = await User.findOne({ username });
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while retrieving user data." });
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while retrieving user data.",
+    });
   }
 });
 
@@ -35,9 +34,10 @@ router.put("/:id/updatechatlog", checkAuth, async (req, res) => {
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating chat log." });
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating chat log.",
+    });
   }
 });
 
@@ -49,8 +49,9 @@ router.put("/:id/deletechatlog", checkAuth, async (req, res) => {
         $set: {
           chatlog: [
             {
-              username: "Bot",
+              username: BOT,
               message: "Hello! I am a bot. Feel free to ask me anything!",
+              isMedia: false,
             },
           ],
         },
@@ -61,9 +62,10 @@ router.put("/:id/deletechatlog", checkAuth, async (req, res) => {
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating chat log." });
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating chat log.",
+    });
   }
 });
 
@@ -75,9 +77,10 @@ router.delete("/:id/deleteuser", checkAuth, async (req, res) => {
       .json({ success: true, message: "User deleted successfully." });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while deleting the user." });
+    res.status(500).json({
+      status: false,
+      message: "An error occurred while deleting the user.",
+    });
   }
 });
 
