@@ -21,7 +21,7 @@ router.post("/image-query", async (req, res) => {
   });
   const url = response.data.data[0].url;
   const responseMessage = {
-    user: BOT,
+    username: BOT,
     message: url,
     isMedia: true,
   };

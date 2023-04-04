@@ -7,7 +7,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 require("dotenv").config();
 const passport = require("passport");
 
-const { BOT } = require("../config/constants");
+const { BOT, DEFAULT_BOT_MESSAGE } = require("../config/constants");
 
 router.get("/getuser", checkAuth, async (req, res) => {
   try {
@@ -50,7 +50,7 @@ router.put("/:id/deletechatlog", checkAuth, async (req, res) => {
           chatlog: [
             {
               username: BOT,
-              message: "Hello! I am a bot. Feel free to ask me anything!",
+              message: DEFAULT_BOT_MESSAGE,
               isMedia: false,
             },
           ],

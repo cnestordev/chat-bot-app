@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 import Menu from "./Menu";
 
 import "../styles/container.css";
-import { BOT } from "../config/constants";
+import { BOT, DEFAULT_BOT_MESSAGE } from "../config/constants";
 
 const Container = () => {
   // Registered or unregistered user account
@@ -34,7 +34,8 @@ const Container = () => {
       chatlog: [
         {
           username: BOT,
-          message: "Hello! I am a bot. Feel free to ask me anyting!",
+          message: DEFAULT_BOT_MESSAGE,
+          isMedia: false,
         },
       ],
       isMedia: false,
@@ -207,7 +208,7 @@ const Container = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const response = await axios.delete(`/user/${user._id}/deleteuser`);
+      await axios.delete(`/user/${user._id}/deleteuser`);
       setUser(anonymousUser);
       setIsLoggedIn(false);
       setChatlog(anonymousUser.chatlog);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
-const { BOT } = require("../config/constants");
+const { BOT, DEFAULT_BOT_MESSAGE } = require("../config/constants");
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -30,7 +30,8 @@ UserSchema.pre("save", function (next) {
   if (this.isNew) {
     this.chatlog.push({
       username: BOT,
-      message: "Hello there! Feel free to ask me anything!",
+      message: DEFAULT_BOT_MESSAGE,
+      isMedia: false,
     });
   }
   next();

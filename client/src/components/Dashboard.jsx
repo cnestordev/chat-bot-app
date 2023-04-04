@@ -6,6 +6,8 @@ import Input from "./Input";
 import AppContext from "../context/AppContext";
 import axios from "axios";
 
+import { GENERATE } from "../config/constants";
+
 const Dashboard = ({
   userLogs,
   updateChatlog,
@@ -24,57 +26,31 @@ const Dashboard = ({
     setMessage(inputText);
     setInputValue(inputText);
     const firstWord = inputText.split(" ")[0];
-    setIsImagePrompt(firstWord.toLowerCase() === "generate");
+    setIsImagePrompt(firstWord.toLowerCase() === GENERATE);
   };
 
   const handleEnterPressed = async () => {
     const userMessage = {
       message: message,
       username: user.username,
-      isMedia: isImagePrompt,
+      isMedia: false,
     };
     await updateChatlog(userMessage);
     setMessage("");
     setInputValue("");
-    if (!isImagePrompt) {
-      console.log("Text");
-      axios
-        .post("/api/query", { message })
-        .then((response) => {
-          updateChatlog(response.data.responseMessage);
-          tts(response.data.responseMessage.message);
-        })
-        .catch((error) => {
-          console.log(error.response.data.responseMessage);
-          updateChatlog(error.response.data.responseMessage);
-          setMessage("");
-          setInputValue("");
-        });
-    } else {
-      console.log("image");
-      axios
-        .post("/api/image-query", { message })
-        .then((response) => {
-          console.log(response.data.data[0].url);
-          // const imageUrl = response.data.data[0].url;
-          // // const resMessage = {
-          // //   message: imageUrl,
-          // //   username: "Bot",
-          // // };
-          // updateChatlog(resMessage);
-          // tts(resMessage.message);
-        })
-        .catch((error) => {
-          console.log(error.response.data.message);
-          // const resMessage = {
-          //   message: error.response.data.message,
-          //   username: "Bot",
-          // };
-          // updateChatlog(resMessage);
-          // setMessage("");
-          // setInputValue("");
-        });
-    }
+    const promptUrl = isImagePrompt ? "image-query" : "query";
+    axios
+      .post(`/api/${promptUrl}`, { message })
+      .then((response) => {
+        updateChatlog(response.data.responseMessage);
+        !isImagePrompt && tts(response.data.responseMessage.message);
+      })
+      .catch((error) => {
+        console.log(error.response.data.responseMessage);
+        updateChatlog(error.response.data.responseMessage);
+        setMessage("");
+        setInputValue("");
+      });
   };
 
   const tts = async (message) => {
