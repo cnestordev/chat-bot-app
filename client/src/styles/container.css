@@ -10,6 +10,7 @@
   background-color: #fff;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  z-index: 2;
 }
 .main-container .right {
   animation: centerIn 300ms forwards;
@@ -18,8 +19,11 @@
   align-items: center;
 }
 @media (max-width: 1200px) {
-  .main-container .left {
+  .main-container .inactive {
     animation: slideOut 300ms forwards;
+  }
+  .main-container .active {
+    animation: slideIn 300ms forwards;
   }
   .main-container .right {
     animation: centerOut 300ms forwards;

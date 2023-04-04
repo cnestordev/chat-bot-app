@@ -24,6 +24,8 @@ const Container = () => {
   // error processing authentication
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  // mobile nav
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const anonymousUser = useMemo(
     () => ({
@@ -58,6 +60,10 @@ const Container = () => {
     };
     getUser();
   }, [anonymousUser]);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const handleRegistration = () => {
     setIsLoggingIn(true);
@@ -210,7 +216,7 @@ const Container = () => {
 
   return (
     <div className="main-container">
-      <div className="left">
+      <div className={`left ${isMenuOpen ? "active" : "inactive"}`}>
         <Menu
           username={username}
           password={password}
@@ -236,6 +242,8 @@ const Container = () => {
           user={user}
           userLogs={chatlog}
           updateChatlog={updateChatlog}
+          handleMenuToggle={handleMenuToggle}
+          isMenuOpen={isMenuOpen}
         />
       </div>
     </div>

@@ -6,7 +6,13 @@ import Input from "./Input";
 import AppContext from "../context/AppContext";
 import axios from "axios";
 
-const Dashboard = ({ userLogs, updateChatlog, user }) => {
+const Dashboard = ({
+  userLogs,
+  updateChatlog,
+  user,
+  handleMenuToggle,
+  isMenuOpen,
+}) => {
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
@@ -60,7 +66,12 @@ const Dashboard = ({ userLogs, updateChatlog, user }) => {
   return (
     <AppContext.Provider value={{ message, setMessage }}>
       <div className="dashboard-container">
-        <Header isMute={isMute} toggleMute={setIsMute} />
+        <Header
+          handleMenuToggle={handleMenuToggle}
+          isMenuOpen={isMenuOpen}
+          isMute={isMute}
+          toggleMute={setIsMute}
+        />
         <Body messages={userLogs} />
         <Input
           value={inputValue}

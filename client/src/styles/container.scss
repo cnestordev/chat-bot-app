@@ -10,6 +10,7 @@
     background-color: #fff;
     border-radius: 25px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    z-index: 2;
   }
 
   .right {
@@ -20,8 +21,11 @@
   }
 
   @media (max-width: 1200px) {
-    .left {
+    .inactive {
       animation: slideOut 300ms forwards;
+    }
+    .active {
+      animation: slideIn 300ms forwards;
     }
     .right {
       animation: centerOut 300ms forwards;

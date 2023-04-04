@@ -5,6 +5,21 @@ const axios = require("axios");
 const User = require("../models/User");
 const authMiddleware = require("../middleware/authMiddleware");
 
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+  apiKey: process.env.APIKEY,
+});
+const openai = new OpenAIApi(configuration);
+
+router.post("/image-query", async (req, res) => {
+  const response = await openai.createImage({
+    prompt: "A cute baby sea otter",
+    n: 1,
+    size: "1024x1024",
+  });
+  res.status(200).json(response.data);
+});
+
 router.post("/query", (req, res) => {
   const message = req.body.message;
   axios
@@ -29,9 +44,7 @@ router.post("/query", (req, res) => {
     )
     .then((response) => {
       const generatedText = response.data.choices[0].text;
-      res
-        .status(200)
-        .json({ extra: response.data, success: true, generatedText });
+      res.status(200).json({ success: true, generatedText });
     })
     .catch((error) => {
       console.error("Error:", error.response);

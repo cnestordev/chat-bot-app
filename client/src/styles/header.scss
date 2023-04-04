@@ -3,17 +3,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  .menu {
+    display: none;
+    font-size: 20px;
+    background-color: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    color: #272727;
+    padding: 10px;
+    border-radius: 50px;
+    transition: transform 200ms ease-in-out;
+    &.toggleArrow {
+      transition: transform 200ms ease-in-out;
+      transform: rotate(-180deg);
+    }
+  }
   .title {
     display: flex;
     align-items: center;
     gap: 15px;
     h2 {
-      font-size: 40px;
+      font-size: 25px;
       color: #272727;
       font-weight: 600;
     }
     .icon {
-      font-size: 30px;
+      font-size: 25px;
       color: #272727;
     }
   }
@@ -38,6 +52,30 @@
     &:not(:active) {
       transition: background-color 750ms;
       background-color: transparent;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-container {
+    .menu {
+      display: block;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 3;
+    }
+  }
+}
+
+@media (max-width: 763px) {
+  .header-container {
+    .menu {
+      display: block;
+      position: relative;
+      z-index: 3;
+      top: 0;
+      left: 0;
     }
   }
 }
