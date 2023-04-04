@@ -1,6 +1,9 @@
+.hidden {
+  display: none !important;
+}
+
 .bubble-container {
   background-color: #fff;
-  color: #131313;
   padding: 20px;
   margin: 15px 0;
   border-radius: 15px;

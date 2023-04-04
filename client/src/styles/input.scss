@@ -1,24 +1,26 @@
+@use "shared.scss";
+
 .input-container {
   padding: 10px 15px;
   display: flex;
   position: relative;
   .input-field {
     width: 100%;
-    font-size: 14px;
+    font-size: shared.$prompt-font-size;
     border: none;
-    background-color: #f6f8fc;
-    color: #303030;
+    background-color: shared.$main-prompt-bg-color;
+    color: shared.$main-prompt-text-color;
     padding: 15px;
     border-radius: 25px;
     padding-left: 37px;
     &::placeholder {
-      color: #ccc;
+      color: shared.$main-prompt-color;
     }
   }
   .icon {
     position: absolute;
     left: 30px;
     top: 27px;
-    color: #ccc;
+    color: shared.$main-prompt-color;
   }
 }

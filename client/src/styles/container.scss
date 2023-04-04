@@ -1,3 +1,5 @@
+@use "shared.scss";
+
 .main-container {
   height: 100%;
   align-items: center;
@@ -7,8 +9,8 @@
     position: fixed;
     top: 0;
     animation: slideIn 300ms forwards;
-    background-color: #fff;
-    border-radius: 25px;
+    background-color: shared.$plain-white;
+    border-radius: shared.$main-border-radius;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
     z-index: 2;
   }

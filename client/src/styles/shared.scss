@@ -1,88 +1,43 @@
+// fonts colors
+$main-font-color: #272727;
+$main-font-theme-bot-bg-color: #e4f2fe;
+$main-font-theme-bot-text-color: #17519c;
+$main-input-fields-text-color: #4a4a4a;
+
+// Misc colors
+$error-code-color: #ff8989;
+$warning-bg-color: #ffface;
+$warning-text-color: #726d13;
+$warning-bg-color-active: #f7eea2;
+$warning-text-color-active: #7c7717;
+$danger-bg-color: #ffcece;
+$danger-text-color: #cf6767;
+$danger-bg-color-active: #fba9a9;
+$danger-text-color-active: #e52929;
+$neutral-bg-color: #e1e1e1;
+$neutral-text-color: #878787;
+$neutral-bg-color-active: #b5b5b5;
+$neutral-text-color-active: #2e2e2e;
+
+// font family
+$main-font-family: "Lexend", sans-serif;
+
+// UI
+$main-border-radius: 15px;
+$main-prompt-bg-color: #f6f8fc;
+$main-auth-input-bg-color: #e6eaf1;
+$main-prompt-text-color: #303030;
+$main-prompt-color: #ccc;
 $loading_dot: #666666;
+$plain-white: #fff;
+$plain-black: #000;
 
-.dot-elastic {
-  position: relative;
-  width: 8px;
-  height: 8px;
-  border-radius: 5px;
-  background-color: $loading_dot;
-  animation: dot-elastic 1s infinite linear;
-}
-.dot-elastic::before,
-.dot-elastic::after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 0;
-}
-.dot-elastic::before {
-  left: -15px;
-  width: 8px;
-  height: 8px;
-  border-radius: 5px;
-  background-color: $loading_dot;
-  animation: dot-elastic-before 1s infinite linear;
-}
-.dot-elastic::after {
-  left: 15px;
-  width: 8px;
-  height: 8px;
-  border-radius: 5px;
-  background-color: $loading_dot;
-  animation: dot-elastic-after 1s infinite linear;
-}
-
-@keyframes dot-elastic-before {
-  0% {
-    transform: scale(1, 1);
-  }
-  25% {
-    transform: scale(1, 1.2);
-  }
-  50% {
-    transform: scale(1, 0.67);
-  }
-  75% {
-    transform: scale(1, 1);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-@keyframes dot-elastic {
-  0% {
-    transform: scale(1, 1);
-  }
-  25% {
-    transform: scale(1, 1);
-  }
-  50% {
-    transform: scale(1, 1.2);
-  }
-  75% {
-    transform: scale(1, 1);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-@keyframes dot-elastic-after {
-  0% {
-    transform: scale(1, 1);
-  }
-  25% {
-    transform: scale(1, 1);
-  }
-  50% {
-    transform: scale(1, 0.67);
-  }
-  75% {
-    transform: scale(1, 1.2);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
+// font sizes
+$header-font-size: 25px;
+$bubble-font-size: 16px;
+$inputs-font-size: 13px;
+$prompt-font-size: 14px;
+$font-bold: 600;
 
 .hidden {
   display: none !important;

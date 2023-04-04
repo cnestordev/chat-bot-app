@@ -1,3 +1,7 @@
+.hidden {
+  display: none !important;
+}
+
 .main-container {
   height: 100%;
   align-items: center;
@@ -8,7 +12,7 @@
   top: 0;
   animation: slideIn 300ms forwards;
   background-color: #fff;
-  border-radius: 25px;
+  border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   z-index: 2;
 }

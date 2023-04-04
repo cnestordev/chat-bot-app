@@ -1,3 +1,7 @@
+.hidden {
+  display: none !important;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -42,11 +46,11 @@
   font-size: 17px;
 }
 .header-container .media:active {
-  background-color: #dbe7ff;
+  background-color: #e4f2fe;
   transition: background-color 0ms;
 }
 .header-container .media:active .icon {
-  color: #5378c1;
+  color: #17519c;
 }
 .header-container .media:not(:active) {
   transition: background-color 750ms;

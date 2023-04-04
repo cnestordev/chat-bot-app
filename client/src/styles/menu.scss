@@ -1,21 +1,22 @@
-@use "./shared.scss";
+@use "shared.scss";
+@use "animations.scss";
 
 .menu-container {
-  border-radius: 15px;
-  background-color: #fff;
+  border-radius: shared.$main-border-radius;
+  background-color: shared.$plain-white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 30px 40px;
-  color: #272727;
+  color: shared.$main-font-color;
   // box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   .menu-header {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    font-size: 23px;
-    font-weight: 600;
+    font-size: shared.$header-font-size;
+    font-weight: shared.$font-bold;
     padding-bottom: 30px;
     margin-bottom: 30px;
     border-bottom: 1px solid #bbb;
@@ -27,15 +28,15 @@
     gap: 12px;
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 10px;
-    background-color: #f5f5f5;
+    border-radius: shared.$main-border-radius;
+    background-color: shared.$main-prompt-bg-color;
     width: 225px;
     .input-field {
       input {
-        background-color: #e7e7e7;
+        background-color: shared.$main-auth-input-bg-color;
         border: none;
         border-radius: 10px;
-        color: #4a4a4a;
+        color: shared.$main-input-fields-text-color;
         padding: 10px;
         &:focus {
           border: none;
@@ -45,7 +46,7 @@
       &.password-input {
         position: relative;
         svg {
-          color: #3d3d3d;
+          color: shared.$main-prompt-text-color;
           position: absolute;
           right: 7%;
           top: 50%;
@@ -60,12 +61,12 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      color: #000;
+      color: shared.$plain-black;
       button {
         cursor: pointer;
         border: none;
         border-radius: 6px;
-        font-family: "Lexend";
+        font-family: shared.$main-font-family;
         background-color: #d7d7d7;
         flex-direction: column;
         align-items: center;
@@ -77,12 +78,12 @@
       }
       span {
         font-size: 12px;
-        color: #3c3c3c;
+        color: shared.$main-prompt-text-color;
         cursor: pointer;
       }
       .menu-error {
         font-size: 12px;
-        color: #ff8989;
+        color: shared.$error-code-color;
         word-wrap: break-word;
       }
     }
@@ -91,36 +92,36 @@
         border: none;
         cursor: pointer;
         border-radius: 38px;
-        font-family: "Lexend";
+        font-family: shared.$main-font-family;
         min-height: 33px;
         align-self: center;
         transition: 500ms;
         width: 80%;
         &.delete-convo {
-          background-color: #ffface;
-          color: #726d13;
+          background-color: shared.$warning-bg-color;
+          color: shared.$warning-text-color;
         }
         &.delete-convo:active {
-          background-color: #f7eea2;
-          color: #7c7717;
+          background-color: shared.$warning-bg-color-active;
+          color: shared.$warning-text-color-active;
           transition: 200ms;
         }
         &.delete-account {
-          background-color: #ffcece;
-          color: #cf6767;
+          background-color: shared.$danger-bg-color;
+          color: shared.$danger-text-color;
         }
         &.delete-account:active {
-          background-color: #fba9a9;
-          color: #e52929;
+          background-color: shared.$danger-bg-color-active;
+          color: shared.$danger-text-color-active;
           transition: 200ms;
         }
         &.user-logout {
-          background-color: #e1e1e1;
-          color: #878787;
+          background-color: shared.$neutral-bg-color;
+          color: shared.$neutral-text-color;
         }
         &.user-logout:active {
-          background-color: #b5b5b5;
-          color: #2e2e2e;
+          background-color: shared.$neutral-bg-color-active;
+          color: shared.$neutral-text-color-active;
           transition: 200ms;
         }
       }

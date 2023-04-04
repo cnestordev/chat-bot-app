@@ -1,3 +1,7 @@
+.hidden {
+  display: none !important;
+}
+
 .dot-elastic {
   position: relative;
   width: 8px;
@@ -84,10 +88,6 @@
     transform: scale(1, 1);
   }
 }
-.hidden {
-  display: none !important;
-}
-
 .menu-container {
   border-radius: 15px;
   background-color: #fff;
@@ -102,7 +102,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  font-size: 23px;
+  font-size: 25px;
   font-weight: 600;
   padding-bottom: 30px;
   margin-bottom: 30px;
@@ -115,12 +115,12 @@
   gap: 12px;
   padding: 20px;
   box-sizing: border-box;
-  border-radius: 10px;
-  background-color: #f5f5f5;
+  border-radius: 15px;
+  background-color: #f6f8fc;
   width: 225px;
 }
 .menu-container .menu-body .input-field input {
-  background-color: #e7e7e7;
+  background-color: #e6eaf1;
   border: none;
   border-radius: 10px;
   color: #4a4a4a;
@@ -134,7 +134,7 @@
   position: relative;
 }
 .menu-container .menu-body .input-field.password-input svg {
-  color: #3d3d3d;
+  color: #303030;
   position: absolute;
   right: 7%;
   top: 50%;
@@ -153,7 +153,7 @@
   cursor: pointer;
   border: none;
   border-radius: 6px;
-  font-family: "Lexend";
+  font-family: "Lexend", sans-serif;
   background-color: #d7d7d7;
   flex-direction: column;
   align-items: center;
@@ -165,7 +165,7 @@
 }
 .menu-container .menu-body .login-btns span {
   font-size: 12px;
-  color: #3c3c3c;
+  color: #303030;
   cursor: pointer;
 }
 .menu-container .menu-body .login-btns .menu-error {
@@ -177,7 +177,7 @@
   border: none;
   cursor: pointer;
   border-radius: 38px;
-  font-family: "Lexend";
+  font-family: "Lexend", sans-serif;
   min-height: 33px;
   align-self: center;
   transition: 500ms;

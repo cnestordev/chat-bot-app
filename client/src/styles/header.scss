@@ -1,3 +1,5 @@
+@use "shared.scss";
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -6,9 +8,9 @@
   .menu {
     display: none;
     font-size: 20px;
-    background-color: #fff;
+    background-color: shared.$plain-white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    color: #272727;
+    color: shared.$main-font-color;
     padding: 10px;
     border-radius: 50px;
     transition: transform 200ms ease-in-out;
@@ -22,13 +24,13 @@
     align-items: center;
     gap: 15px;
     h2 {
-      font-size: 25px;
-      color: #272727;
-      font-weight: 600;
+      font-size: shared.$header-font-size;
+      color: shared.$main-font-color;
+      font-weight: shared.$font-bold;
     }
     .icon {
-      font-size: 25px;
-      color: #272727;
+      font-size: shared.$header-font-size;
+      color: shared.$main-font-color;
     }
   }
   .media {
@@ -37,15 +39,15 @@
 
     .icon {
       cursor: pointer;
-      color: #272727;
+      color: shared.$main-font-color;
       font-size: 17px;
     }
 
     &:active {
-      background-color: #dbe7ff;
+      background-color: shared.$main-font-theme-bot-bg-color;
       transition: background-color 0ms;
       .icon {
-        color: #5378c1;
+        color: shared.$main-font-theme-bot-text-color;
       }
     }
 

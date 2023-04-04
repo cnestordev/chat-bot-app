@@ -1,3 +1,7 @@
+.hidden {
+  display: none !important;
+}
+
 .body-container {
   background-color: #f6f8fc;
   padding: 20px 0 20px 20px;
