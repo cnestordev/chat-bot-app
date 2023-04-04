@@ -28,3 +28,9 @@
     color: #303030;
   }
 }
+
+@media (max-width: 1200px) {
+  .bubble-container {
+    width: 80%;
+  }
+}
