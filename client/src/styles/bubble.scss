@@ -22,6 +22,9 @@
   }
   &.image {
     width: 25%;
+    &.zoom {
+      width: 70%;
+    }
   }
   .username {
     font-size: 12px;
@@ -42,6 +45,12 @@
   .bubble-container {
     &.text {
       width: 80%;
+    }
+    &.image {
+      width: 35%;
+      &.zoom {
+        width: 80%;
+      }
     }
   }
 }

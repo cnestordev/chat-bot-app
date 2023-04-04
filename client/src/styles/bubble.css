@@ -24,6 +24,9 @@
 .bubble-container.image {
   width: 25%;
 }
+.bubble-container.image.zoom {
+  width: 70%;
+}
 .bubble-container .username {
   font-size: 12px;
   font-weight: 600;
@@ -40,6 +43,12 @@
 
 @media (max-width: 1200px) {
   .bubble-container.text {
+    width: 80%;
+  }
+  .bubble-container.image {
+    width: 35%;
+  }
+  .bubble-container.image.zoom {
     width: 80%;
   }
 }/*# sourceMappingURL=bubble.css.map */
