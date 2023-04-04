@@ -11,6 +11,7 @@
   gap: 5px;
   p {
     text-align: left;
+    word-wrap: break-word;
   }
   &.bot {
     background-color: shared.$main-font-theme-bot-bg-color;

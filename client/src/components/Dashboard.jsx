@@ -6,7 +6,7 @@ import Input from "./Input";
 import AppContext from "../context/AppContext";
 import axios from "axios";
 
-import { GENERATE } from "../config/constants";
+import { CREATE, GENERATE } from "../config/constants";
 
 const Dashboard = ({
   userLogs,
@@ -26,7 +26,7 @@ const Dashboard = ({
     setMessage(inputText);
     setInputValue(inputText);
     const firstWord = inputText.split(" ")[0];
-    setIsImagePrompt(firstWord.toLowerCase() === GENERATE);
+    setIsImagePrompt([GENERATE, CREATE].includes(firstWord.toLowerCase()));
   };
 
   const handleEnterPressed = async () => {

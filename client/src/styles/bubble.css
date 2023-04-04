@@ -14,6 +14,7 @@
 }
 .bubble-container p {
   text-align: left;
+  word-wrap: break-word;
 }
 .bubble-container.bot {
   background-color: #e4f2fe;
