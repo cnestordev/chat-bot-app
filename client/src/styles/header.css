@@ -45,7 +45,7 @@
   transition: background-color 0ms;
 }
 .header-container .media:active .icon {
-  color: #0d7c5a;
+  color: #17519c;
 }
 .header-container .media:not(:active) {
   transition: background-color 750ms;

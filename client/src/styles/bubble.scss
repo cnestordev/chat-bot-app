@@ -14,9 +14,9 @@
     word-wrap: break-word;
   }
   &.bot {
-    background-color: shared.$main-theme-bubble-bg-color;
+    background-color: shared.$main-theme-bubble-bg-color-blue;
     p {
-      color: shared.$main-theme-bubble-text-color;
+      color: shared.$main-theme-bubble-text-color-blue;
     }
   }
   &.text {
