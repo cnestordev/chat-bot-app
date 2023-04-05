@@ -1,0 +1,105 @@
+@use "shared.scss";
+@use "animations.scss";
+
+.auth-container {
+  .auth-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    .input-field {
+      position: relative;
+      input {
+        background-color: shared.$main-theme-menu-footer-bg-color;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        width: 91%;
+        color: shared.$main-theme-bubble-text-color;
+        &::placeholder {
+          color: shared.$main-theme-light-text-color;
+        }
+      }
+      .icon {
+        font-size: 18px;
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .login-btns {
+      float: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      button {
+        cursor: pointer;
+        border: none;
+        border-radius: 6px;
+        font-family: shared.$main-font-family;
+        background-color: shared.$main-theme-menu-footer-bg-color;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        width: 95%;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+      }
+      span {
+        font-size: 12px;
+        color: shared.$main-theme-bubble-text-color;
+        cursor: pointer;
+      }
+      .menu-error {
+        font-size: 12px;
+        color: shared.$danger-text-color-active;
+        word-wrap: break-word;
+      }
+    }
+  }
+  .account-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 7px;
+      font-family: shared.$main-font-family;
+      min-height: 33px;
+      align-self: center;
+      transition: 500ms;
+      width: 100%;
+      &.delete-convo {
+        background-color: shared.$warning-bg-color;
+        color: shared.$warning-text-color;
+      }
+      &.delete-convo:active {
+        background-color: shared.$warning-bg-color-active;
+        color: shared.$warning-text-color-active;
+        transition: 200ms;
+      }
+      &.delete-account {
+        background-color: shared.$danger-bg-color;
+        color: shared.$danger-text-color;
+      }
+      &.delete-account:active {
+        background-color: shared.$danger-bg-color-active;
+        color: shared.$danger-text-color-active;
+        transition: 200ms;
+      }
+      &.user-logout {
+        background-color: shared.$neutral-bg-color;
+        color: shared.$neutral-text-color;
+      }
+      &.user-logout:active {
+        background-color: shared.$neutral-bg-color-active;
+        color: shared.$neutral-text-color-active;
+        transition: 200ms;
+      }
+    }
+  }
+}

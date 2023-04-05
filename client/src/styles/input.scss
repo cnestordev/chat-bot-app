@@ -8,19 +8,19 @@
     width: 100%;
     font-size: shared.$prompt-font-size;
     border: none;
-    background-color: shared.$main-prompt-bg-color;
-    color: shared.$main-prompt-text-color;
+    background-color: shared.$chat-container-bg-color;
+    color: shared.$dark-on-light-text;
     padding: 15px;
     border-radius: 25px;
     padding-left: 37px;
     &::placeholder {
-      color: shared.$main-prompt-color;
+      color: shared.$placeholder-text-color;
     }
   }
   .icon {
     position: absolute;
     left: 30px;
     top: 27px;
-    color: shared.$main-prompt-color;
+    color: shared.$placeholder-text-color;
   }
 }

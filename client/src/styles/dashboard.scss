@@ -1,7 +1,7 @@
 @use "shared.scss";
 
 .dashboard-container {
-  background-color: shared.$plain-white;
+  background-color: shared.$chat-container-header-bg-color;
   border-radius: shared.$main-border-radius;
   width: 80%;
   margin: 0 auto;

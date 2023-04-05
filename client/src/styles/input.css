@@ -12,20 +12,20 @@
   font-size: 14px;
   border: none;
   background-color: #f6f8fc;
-  color: #303030;
+  color: #424242;
   padding: 15px;
   border-radius: 25px;
   padding-left: 37px;
 }
 .input-container .input-field::-moz-placeholder {
-  color: #ccc;
+  color: #adadad;
 }
 .input-container .input-field::placeholder {
-  color: #ccc;
+  color: #adadad;
 }
 .input-container .icon {
   position: absolute;
   left: 30px;
   top: 27px;
-  color: #ccc;
+  color: #adadad;
 }/*# sourceMappingURL=input.css.map */

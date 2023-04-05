@@ -11,9 +11,7 @@
 .header-container .menu {
   display: none;
   font-size: 20px;
-  background-color: #fff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: #272727;
   padding: 10px;
   border-radius: 50px;
   transition: transform 200ms ease-in-out;
@@ -27,14 +25,11 @@
   align-items: center;
   gap: 15px;
 }
-.header-container .title h2 {
-  font-size: 25px;
-  color: #272727;
-  font-weight: 600;
-}
+.header-container .title h2,
 .header-container .title .icon {
   font-size: 25px;
-  color: #272727;
+  color: #424242;
+  font-weight: 600;
 }
 .header-container .media {
   padding: 12px;
@@ -42,15 +37,15 @@
 }
 .header-container .media .icon {
   cursor: pointer;
-  color: #272727;
+  color: #424242;
   font-size: 17px;
 }
 .header-container .media:active {
-  background-color: #e4f2fe;
+  background-color: #f6f8fc;
   transition: background-color 0ms;
 }
 .header-container .media:active .icon {
-  color: #17519c;
+  color: #0d7c5a;
 }
 .header-container .media:not(:active) {
   transition: background-color 750ms;

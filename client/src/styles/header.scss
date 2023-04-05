@@ -8,9 +8,7 @@
   .menu {
     display: none;
     font-size: 20px;
-    background-color: shared.$plain-white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    color: shared.$main-font-color;
     padding: 10px;
     border-radius: 50px;
     transition: transform 200ms ease-in-out;
@@ -23,14 +21,11 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    h2 {
-      font-size: shared.$header-font-size;
-      color: shared.$main-font-color;
-      font-weight: shared.$font-bold;
-    }
+    h2,
     .icon {
       font-size: shared.$header-font-size;
-      color: shared.$main-font-color;
+      color: shared.$dark-on-light-text;
+      font-weight: shared.$font-bold;
     }
   }
   .media {
@@ -39,15 +34,15 @@
 
     .icon {
       cursor: pointer;
-      color: shared.$main-font-color;
+      color: shared.$dark-on-light-text;
       font-size: 17px;
     }
 
     &:active {
-      background-color: shared.$main-font-theme-bot-bg-color;
+      background-color: shared.$chat-container-bg-color;
       transition: background-color 0ms;
       .icon {
-        color: shared.$main-font-theme-bot-text-color;
+        color: shared.$main-theme-bubble-text-color;
       }
     }
 

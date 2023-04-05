@@ -14,9 +14,9 @@
     word-wrap: break-word;
   }
   &.bot {
-    background-color: shared.$main-font-theme-bot-bg-color;
+    background-color: shared.$main-theme-bubble-bg-color;
     p {
-      color: shared.$main-font-theme-bot-text-color;
+      color: shared.$main-theme-bubble-text-color;
     }
   }
   &.text {
@@ -35,7 +35,7 @@
     margin-bottom: 1px;
   }
   .response-text {
-    color: shared.$main-prompt-text-color;
+    color: shared.$dark-on-light-text;
   }
   .response-image {
     width: 100%;

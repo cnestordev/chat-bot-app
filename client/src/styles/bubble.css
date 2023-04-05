@@ -17,10 +17,10 @@
   word-wrap: break-word;
 }
 .bubble-container.bot {
-  background-color: #e4f2fe;
+  background-color: #d6fff3;
 }
 .bubble-container.bot p {
-  color: #17519c;
+  color: #0d7c5a;
 }
 .bubble-container.text {
   width: 70%;
@@ -38,7 +38,7 @@
   margin-bottom: 1px;
 }
 .bubble-container .response-text {
-  color: #303030;
+  color: #424242;
 }
 .bubble-container .response-image {
   width: 100%;

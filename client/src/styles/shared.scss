@@ -1,10 +1,29 @@
-// fonts colors
-$main-font-color: #272727;
-$main-font-theme-bot-bg-color: #e4f2fe;
-$main-font-theme-bot-text-color: #17519c;
-$main-input-fields-text-color: #4a4a4a;
+// User theme colors
+// $main-theme-bubble-bg-color: #e4f2fe;
+// $main-theme-bubble-text-color: #17519c;
+// $main-theme-menu-bg-color: #f2f9ff;
+// $main-theme-menu-footer-bg-color: #cbe4f9;
+// $main-theme-light-text-color: #7c93c3;
 
-// Misc colors
+// User theme colors
+$main-theme-bubble-bg-color: #d6fff3;
+$main-theme-bubble-text-color: #0d7c5a;
+$main-theme-menu-bg-color: #ebfff9;
+$main-theme-menu-footer-bg-color: #c5ffed;
+$main-theme-light-text-color: #63cfad;
+
+// UI
+$plain-black: #000;
+$plain-white: #fff;
+$placeholder-text-color: #adadad;
+$dark-on-light-text: #424242;
+$dashboard-bg-color: #f7f7f7;
+$chat-container-bg-color: #f6f8fc;
+$chat-container-header-bg-color: $plain-white;
+$loading_dot: #666666;
+$main-border-radius: 15px;
+
+// User settings colors
 $error-code-color: #ff8989;
 $warning-bg-color: #ffface;
 $warning-text-color: #726d13;
@@ -21,16 +40,6 @@ $neutral-text-color-active: #2e2e2e;
 
 // font family
 $main-font-family: "Lexend", sans-serif;
-
-// UI
-$main-border-radius: 15px;
-$main-prompt-bg-color: #f6f8fc;
-$main-auth-input-bg-color: #e6eaf1;
-$main-prompt-text-color: #303030;
-$main-prompt-color: #ccc;
-$loading_dot: #666666;
-$plain-white: #fff;
-$plain-black: #000;
 
 // font sizes
 $header-font-size: 25px;

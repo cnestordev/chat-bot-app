@@ -89,124 +89,78 @@
   }
 }
 .menu-container {
-  border-radius: 15px;
-  background-color: #fff;
+  padding: 35px;
+}
+.menu-container hr {
+  border: none;
+  border-bottom: 1px solid gray;
+  margin: 15px 0;
+}
+.menu-container .menu-header h3 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+.menu-container .menu-header .header-actions {
+  margin: 15px auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 30px 40px;
-  color: #272727;
+  gap: 10px;
+  cursor: pointer;
 }
-.menu-container .menu-header {
+.menu-container .menu-header .header-actions .header-action {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 25px;
-  font-weight: 600;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #bbb;
+  padding: 10px 0;
+  gap: 5px;
+}
+.menu-container .menu-header .header-actions .header-action img {
+  width: 17px;
 }
 .menu-container .menu-body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 15px;
-  background-color: #f6f8fc;
-  width: 225px;
+  gap: 15px;
 }
-.menu-container .menu-body .input-field input {
-  background-color: #e6eaf1;
-  border: none;
-  border-radius: 10px;
-  color: #4a4a4a;
-  padding: 10px;
-}
-.menu-container .menu-body .input-field input:focus {
-  border: none;
-  outline: none;
-}
-.menu-container .menu-body .input-field.password-input {
-  position: relative;
-}
-.menu-container .menu-body .input-field.password-input svg {
-  color: #303030;
-  position: absolute;
-  right: 7%;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-.menu-container .menu-body .login-btns {
-  float: left;
+.menu-container .menu-body .body-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: #000;
+  gap: 5px;
 }
-.menu-container .menu-body .login-btns button {
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  font-family: "Lexend", sans-serif;
-  background-color: #d7d7d7;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px;
-  width: 90%;
-  height: 26px;
+.menu-container .menu-body .body-card .card-header {
   display: flex;
-  justify-content: center;
+  gap: 5px;
+  padding: 7px 0;
 }
-.menu-container .menu-body .login-btns span {
-  font-size: 12px;
-  color: #303030;
-  cursor: pointer;
+.menu-container .menu-body .body-card .card-header img {
+  width: 17px;
 }
-.menu-container .menu-body .login-btns .menu-error {
-  font-size: 12px;
-  color: #ff8989;
+.menu-container .menu-body .body-card .card-body {
+  padding: 7px 0;
+  line-height: 1.2;
+}
+.menu-container .menu-body .body-card .card-body span {
   word-wrap: break-word;
 }
-.menu-container .menu-body.account-settings button {
-  border: none;
+.menu-container .menu-footer {
+  background-color: #c5ffed;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+}
+.menu-container .menu-footer .footer-user {
   cursor: pointer;
-  border-radius: 38px;
-  font-family: "Lexend", sans-serif;
-  min-height: 33px;
-  align-self: center;
-  transition: 500ms;
-  width: 80%;
+  display: flex;
+  align-items: center;
+  padding: 10px 35px;
+  gap: 5px;
 }
-.menu-container .menu-body.account-settings button.delete-convo {
-  background-color: #ffface;
-  color: #726d13;
+.menu-container .menu-footer .footer-user img {
+  width: 17px;
 }
-.menu-container .menu-body.account-settings button.delete-convo:active {
-  background-color: #f7eea2;
-  color: #7c7717;
-  transition: 200ms;
-}
-.menu-container .menu-body.account-settings button.delete-account {
-  background-color: #ffcece;
-  color: #cf6767;
-}
-.menu-container .menu-body.account-settings button.delete-account:active {
-  background-color: #fba9a9;
-  color: #e52929;
-  transition: 200ms;
-}
-.menu-container .menu-body.account-settings button.user-logout {
-  background-color: #e1e1e1;
-  color: #878787;
-}
-.menu-container .menu-body.account-settings button.user-logout:active {
-  background-color: #b5b5b5;
-  color: #2e2e2e;
-  transition: 200ms;
+.menu-container .menu-footer .footer-user span {
+  width: 85%;
 }/*# sourceMappingURL=menu.css.map */

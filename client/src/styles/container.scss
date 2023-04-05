@@ -9,10 +9,12 @@
     position: fixed;
     top: 0;
     animation: slideIn 300ms forwards;
-    background-color: shared.$plain-white;
+    background-color: shared.$main-theme-menu-bg-color;
     border-radius: shared.$main-border-radius;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    color: shared.$main-theme-bubble-text-color;
     z-index: 2;
+    width: 300px;
   }
 
   .right {
