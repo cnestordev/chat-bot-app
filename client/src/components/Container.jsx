@@ -6,9 +6,14 @@ import Menu from "./Menu";
 import "../styles/container.css";
 import { BOT, DEFAULT_BOT_MESSAGE } from "../config/constants";
 
+import { useSelector, useDispatch } from "react-redux";
+import { login, updateChatlog } from "../redux/rootReducer";
+
 const Container = () => {
+  const dispatch = useDispatch();
   // Registered or unregistered user account
-  const [user, setUser] = useState(null);
+  const user = useSelector((state) => state.user);
+  console.log(user);
   // track if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // username & password for registering or logging in
@@ -44,17 +49,18 @@ const Container = () => {
   );
 
   useEffect(() => {
+    console.log("checking user status");
     const getUser = async () => {
       try {
         const response = await axios.get("/user/getuser");
         if (response.status === 200) {
-          setUser(response.data.user);
+          dispatch(login(response.data.user));
           setChatlog(response.data.user.chatlog);
           setIsLoggedIn(true);
         } else if (response.status === 204) {
           setIsLoggedIn(false);
-          setUser(anonymousUser);
-          setChatlog(anonymousUser.chatlog);
+          const { payload } = await dispatch(login(anonymousUser));
+          setChatlog(payload.chatlog);
         }
       } catch (error) {
         console.log(error);
@@ -62,7 +68,8 @@ const Container = () => {
       setIsLoading(false);
     };
     getUser();
-  }, [anonymousUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,15 +82,15 @@ const Container = () => {
     const newUser = { username, password };
     axios
       .post("/auth/register", newUser)
-      .then((res) => {
+      .then(async (res) => {
         setIsLoggedIn(true);
-        setUser(res.data.newUserObj);
+        const { payload } = dispatch(login(res.data.newUserObj));
         setUsername("");
         setPassword("");
         setIsLoggingIn(false);
         setToggle(false);
-        const newUserId = res.data.newUserObj._id;
-        const newUsername = res.data.newUserObj.username;
+        const newUserId = payload._id;
+        const newUsername = payload.username;
         const updatedChatlogWithUsername = addUsernameToChatlogs(
           chatlog,
           newUsername
@@ -114,8 +121,8 @@ const Container = () => {
     axios
       .post("/auth/login", user)
       .then((res) => {
-        setUser(res.data.signedInUser);
-        setChatlog(res.data.signedInUser.chatlog);
+        const { payload } = dispatch(login(res.data.signedInUser));
+        setChatlog(payload.chatlog);
         setIsLoggedIn(true);
         setUsername("");
         setPassword("");
@@ -132,9 +139,9 @@ const Container = () => {
     axios
       .post("/auth/logout")
       .then((res) => {
-        setUser(anonymousUser);
+        const { payload } = dispatch(login(anonymousUser));
         setIsLoggedIn(false);
-        setChatlog(anonymousUser.chatlog);
+        setChatlog(payload.chatlog);
       })
       .catch((err) => {
         setHasError(true);
@@ -157,7 +164,7 @@ const Container = () => {
     return updatedChatlogWithUsername;
   };
 
-  const updateChatlog = (newMessage) => {
+  const updateChatlogDatabase = (newMessage) => {
     return new Promise((resolve) => {
       setChatlog((prevChatlog) => {
         const updatedChatlog = [
@@ -199,7 +206,8 @@ const Container = () => {
     if (user && user._id) {
       try {
         const response = await axios.put(`/user/${user._id}/deletechatlog`);
-        setChatlog(response.data.user.chatlog);
+        const { payload } = dispatch(updateChatlog(response.data.user.chatlog));
+        setChatlog(payload);
       } catch (error) {
         console.error(error);
       }
@@ -209,9 +217,9 @@ const Container = () => {
   const handleDeleteUser = async () => {
     try {
       await axios.delete(`/user/${user._id}/deleteuser`);
-      setUser(anonymousUser);
+      const { payload } = dispatch(login(anonymousUser));
       setIsLoggedIn(false);
-      setChatlog(anonymousUser.chatlog);
+      setChatlog(payload.chatlog);
     } catch (error) {
       console.log(error);
     }
@@ -248,7 +256,7 @@ const Container = () => {
         <Dashboard
           user={user}
           userLogs={chatlog}
-          updateChatlog={updateChatlog}
+          updateChatlogDatabase={updateChatlogDatabase}
           handleMenuToggle={handleMenuToggle}
           isMenuOpen={isMenuOpen}
         />

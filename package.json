@@ -34,5 +34,8 @@
   },
   "engines": {
     "node": "v18.14.1"
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }

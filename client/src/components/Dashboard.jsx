@@ -10,7 +10,7 @@ import { CREATE, GENERATE } from "../config/constants";
 
 const Dashboard = ({
   userLogs,
-  updateChatlog,
+  updateChatlogDatabase,
   user,
   handleMenuToggle,
   isMenuOpen,
@@ -35,19 +35,19 @@ const Dashboard = ({
       username: user.username,
       isMedia: false,
     };
-    await updateChatlog(userMessage);
+    await updateChatlogDatabase(userMessage);
     setMessage("");
     setInputValue("");
     const promptUrl = isImagePrompt ? "image-query" : "query";
     axios
       .post(`/api/${promptUrl}`, { message })
       .then((response) => {
-        updateChatlog(response.data.responseMessage);
+        updateChatlogDatabase(response.data.responseMessage);
         !isImagePrompt && tts(response.data.responseMessage.message);
       })
       .catch((error) => {
         console.log(error.response.data.responseMessage);
-        updateChatlog(error.response.data.responseMessage);
+        updateChatlogDatabase(error.response.data.responseMessage);
         setMessage("");
         setInputValue("");
       });
