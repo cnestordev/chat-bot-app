@@ -10,14 +10,14 @@
     .input-field {
       position: relative;
       input {
-        background-color: shared.$main-theme-menu-footer-bg-color-blue;
+        background-color: shared.$main-theme-menu-footer-bg-color;
         border: none;
         padding: 10px;
         border-radius: 5px;
         width: 91%;
-        color: shared.$main-theme-bubble-text-color-blue;
+        color: shared.$main-theme-bubble-text-color;
         &::placeholder {
-          color: shared.$main-theme-light-text-color-blue;
+          color: shared.$main-theme-light-text-color;
         }
       }
       .icon {
@@ -39,7 +39,7 @@
         border: none;
         border-radius: 6px;
         font-family: shared.$main-font-family;
-        background-color: shared.$main-theme-menu-footer-bg-color-blue;
+        background-color: shared.$main-theme-menu-footer-bg-color;
         flex-direction: column;
         align-items: center;
         padding: 5px;
@@ -50,7 +50,7 @@
       }
       span {
         font-size: 12px;
-        color: shared.$main-theme-bubble-text-color-blue;
+        color: shared.$main-theme-bubble-text-color;
         cursor: pointer;
       }
       .menu-error {
