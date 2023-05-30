@@ -48,12 +48,10 @@ const Container = () => {
   );
 
   useEffect(() => {
-    console.log("checking user status");
     const getUser = async () => {
       try {
         const response = await axios.get("/user/getuser");
         if (response.status === 200) {
-          console.log(response.data.user)
           dispatch(login(response.data.user));
           setChatlog(response.data.user.chatlog);
           setIsLoggedIn(true);
@@ -165,9 +163,6 @@ const Container = () => {
   };
 
   const updateChatlogDatabase = (newMessage) => {
-    console.log("%c ############################", "color: gold")
-    console.log(newMessage)
-    console.log("%c ############################", "color: gold")
     if (newMessage) {
       return new Promise((resolve) => {
         setChatlog((prevChatlog) => {
@@ -179,11 +174,6 @@ const Container = () => {
               isMedia: newMessage.isMedia,
             },
           ];
-  
-          console.log("%c ########################")
-          console.log(updatedChatlog)
-          console.log("%c ########################")
-  
           if (user && user._id) {
             try {
               axios

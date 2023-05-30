@@ -42,13 +42,10 @@ const Dashboard = ({
     axios
       .post(`/api/${promptUrl}`, { logs })
       .then((response) => {
-        console.log(response)
         updateChatlogDatabase(response.data.responseMessage);
         !isImagePrompt && tts(response.data.responseMessage.message);
       })
       .catch((error) => {
-        console.log(error)
-        console.log(error.response.data.responseMessage);
         updateChatlogDatabase(error.response.data.responseMessage);
         setMessage("");
         setInputValue("");
