@@ -3,7 +3,7 @@
 }
 
 .bubble-container {
-  background-color: #fff;
+  background-color: #363535;
   padding: 20px;
   margin: 15px 0;
   border-radius: 15px;
@@ -16,11 +16,11 @@
   text-align: left;
   word-wrap: break-word;
 }
-.bubble-container.bot {
-  background-color: #d6fff3;
+.bubble-container.user {
+  background-color: #073226;
 }
-.bubble-container.bot p {
-  color: #0d7c5a;
+.bubble-container.user p {
+  color: #0e8563;
 }
 .bubble-container.text {
   width: 70%;
@@ -38,7 +38,7 @@
   margin-bottom: 1px;
 }
 .bubble-container .response-text {
-  color: #424242;
+  color: #7c7c7c;
 }
 .bubble-container .response-image {
   width: 100%;

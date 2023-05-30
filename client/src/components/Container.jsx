@@ -13,7 +13,6 @@ const Container = () => {
   const dispatch = useDispatch();
   // Registered or unregistered user account
   const user = useSelector((state) => state.user);
-  console.log(user);
   // track if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // username & password for registering or logging in
@@ -35,11 +34,11 @@ const Container = () => {
 
   const anonymousUser = useMemo(
     () => ({
-      username: "anon",
+      role: "user",
       chatlog: [
         {
-          username: BOT,
-          message: DEFAULT_BOT_MESSAGE,
+          role: BOT,
+          content: DEFAULT_BOT_MESSAGE,
           isMedia: false,
         },
       ],
@@ -156,8 +155,8 @@ const Container = () => {
   // Replace "anonymous" with the user's chosen username
   const addUsernameToChatlogs = (updatedChatlog, username) => {
     const updatedChatlogWithUsername = updatedChatlog.map((entry) => {
-      if (entry.username === "anon") {
-        entry.username = username;
+      if (entry.username === "user") {
+        entry.role = username;
       }
       return entry;
     });
@@ -170,8 +169,8 @@ const Container = () => {
         const updatedChatlog = [
           ...prevChatlog,
           {
-            username: newMessage.username,
-            message: newMessage.message,
+            role: newMessage.role,
+            content: newMessage.content,
             isMedia: newMessage.isMedia,
           },
         ];
@@ -183,7 +182,7 @@ const Container = () => {
                 chatlog: updatedChatlog,
               })
               .then(() => {
-                resolve();
+                resolve(updatedChatlog);
               })
               .catch((error) => {
                 console.error(error);
@@ -194,7 +193,7 @@ const Container = () => {
             resolve();
           }
         } else {
-          resolve();
+          resolve(updatedChatlog);
         }
 
         return updatedChatlog;

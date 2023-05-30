@@ -1,4 +1,4 @@
-export const BOT = "Bot";
+export const BOT = "assistant";
 export const GENERATE = "generate";
 export const CREATE = "create";
 export const DEFAULT_BOT_MESSAGE =

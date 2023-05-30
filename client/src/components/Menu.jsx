@@ -43,7 +43,7 @@ const Menu = ({
               onClick={() => setVisibleSettings(!visibleSettings)}
               className="header-action"
             >
-              <img clas src={userIcon} alt="user" />
+              <img src={userIcon} alt="user" />
               <span>{isLoggedIn ? user.username : "Sign in"}</span>
             </div>
           </div>
@@ -107,7 +107,7 @@ const Menu = ({
             className="footer-user"
           >
             <img src={gearIcon} alt="user" />
-            <span>{isLoggedIn ? user.username : "anon"}</span>
+            <span>{isLoggedIn ? user.username : "user"}</span>
           </div>
         </div>
       </div>

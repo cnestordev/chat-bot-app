@@ -3,14 +3,13 @@
 }
 
 .dashboard-container {
-  background-color: #fff;
+  background-color: #052019;
   border-radius: 15px;
   width: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: 90%;
 }
 .dashboard-container audio {

@@ -12,19 +12,19 @@ const Bubble = ({ message }) => {
   return (
     <div
       className={`bubble-container ${
-        message.username === BOT ? BOT.toLowerCase() : "user"
+        message.role === BOT ? BOT.toLowerCase() : "user"
       } ${message.isMedia ? "image" : "text"} ${isZoomed ? "zoom" : ""}`}
     >
-      <p className="username">{message.username}</p>
+      <p className="username">{message.role}</p>
       {message.isMedia ? (
         <img
           className="response-image"
-          src={message.message}
+          src={message.content}
           alt="bot generated"
           onClick={() => handleZoom()}
         />
       ) : (
-        <p className="response-text">{message.message}</p>
+        <p className="response-text">{message.content}</p>
       )}
     </div>
   );

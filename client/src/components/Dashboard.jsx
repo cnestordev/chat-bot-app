@@ -31,16 +31,16 @@ const Dashboard = ({
 
   const handleEnterPressed = async () => {
     const userMessage = {
-      message: message,
-      username: user.username,
+      content: message,
+      role: user.username,
       isMedia: false,
     };
-    await updateChatlogDatabase(userMessage);
+    let logs = await updateChatlogDatabase(userMessage);
     setMessage("");
     setInputValue("");
     const promptUrl = isImagePrompt ? "image-query" : "query";
     axios
-      .post(`/api/${promptUrl}`, { message })
+      .post(`/api/${promptUrl}`, { logs })
       .then((response) => {
         updateChatlogDatabase(response.data.responseMessage);
         !isImagePrompt && tts(response.data.responseMessage.message);

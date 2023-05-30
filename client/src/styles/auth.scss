@@ -74,7 +74,7 @@
       transition: 500ms;
       width: 100%;
       &.delete-convo {
-        background-color: shared.$warning-bg-color;
+        background-color: #484209;
         color: shared.$warning-text-color;
       }
       &.delete-convo:active {
@@ -83,7 +83,7 @@
         transition: 200ms;
       }
       &.delete-account {
-        background-color: shared.$danger-bg-color;
+        background-color: #3e0e0e;
         color: shared.$danger-text-color;
       }
       &.delete-account:active {
@@ -92,7 +92,7 @@
         transition: 200ms;
       }
       &.user-logout {
-        background-color: shared.$neutral-bg-color;
+        background-color: #2a2a2a;
         color: shared.$neutral-text-color;
       }
       &.user-logout:active {

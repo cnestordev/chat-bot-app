@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BOT, DEFAULT_BOT_MESSAGE } from "../../config/constants";
 
 const anonymousUser = {
-  username: "anon",
+  username: "user",
   chatlog: [
     {
-      username: BOT,
-      message: DEFAULT_BOT_MESSAGE,
+      role: BOT,
+      content: DEFAULT_BOT_MESSAGE,
       isMedia: false,
     },
   ],
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   initialState: anonymousUser,
   reducers: {
     login: (state, action) => {
-      state.username = action.payload.username;
+      state.role = action.payload.role;
       state._id = action.payload._id;
       state.chatlog = action.payload.chatlog;
       state.isLoggedIn = true;
