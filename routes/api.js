@@ -70,6 +70,7 @@ router.post("/query", (req, res) => {
       res.status(500).json({
         success: false,
         responseMessage,
+        error: error.response
       });
     });
 });

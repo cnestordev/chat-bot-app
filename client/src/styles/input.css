@@ -11,8 +11,8 @@
   width: 100%;
   font-size: 14px;
   border: none;
-  background-color: #f6f8fc;
-  color: #424242;
+  background-color: #1f1f20;
+  color: #cecece;
   padding: 15px;
   border-radius: 25px;
   padding-left: 37px;
@@ -22,6 +22,9 @@
 }
 .input-container .input-field::placeholder {
   color: #adadad;
+}
+.input-container .input-field:focus {
+  outline: none;
 }
 .input-container .icon {
   position: absolute;

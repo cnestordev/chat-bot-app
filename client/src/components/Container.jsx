@@ -53,6 +53,7 @@ const Container = () => {
       try {
         const response = await axios.get("/user/getuser");
         if (response.status === 200) {
+          console.log(response.data.user)
           dispatch(login(response.data.user));
           setChatlog(response.data.user.chatlog);
           setIsLoggedIn(true);

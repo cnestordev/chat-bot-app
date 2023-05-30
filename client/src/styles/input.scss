@@ -9,12 +9,15 @@
     font-size: shared.$prompt-font-size;
     border: none;
     background-color: shared.$chat-container-bg-color;
-    color: shared.$dark-on-light-text;
+    color: shared.$light-on-dark-text;
     padding: 15px;
     border-radius: 25px;
     padding-left: 37px;
     &::placeholder {
       color: shared.$placeholder-text-color;
+    }
+    &:focus {
+      outline: none;
     }
   }
   .icon {

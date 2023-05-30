@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   initialState: anonymousUser,
   reducers: {
     login: (state, action) => {
-      state.role = action.payload.role;
+      state.username = action.payload.username;
       state._id = action.payload._id;
       state.chatlog = action.payload.chatlog;
       state.isLoggedIn = true;
