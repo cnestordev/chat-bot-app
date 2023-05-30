@@ -168,45 +168,47 @@ const Container = () => {
     console.log("%c ############################", "color: gold")
     console.log(newMessage)
     console.log("%c ############################", "color: gold")
-    return new Promise((resolve) => {
-      setChatlog((prevChatlog) => {
-        const updatedChatlog = [
-          ...prevChatlog,
-          {
-            role: newMessage.role,
-            content: newMessage.content,
-            isMedia: newMessage.isMedia,
-          },
-        ];
-
-        console.log("%c ########################")
-        console.log(updatedChatlog)
-        console.log("%c ########################")
-
-        if (user && user._id) {
-          try {
-            axios
-              .put(`/user/${user._id}/updatechatlog`, {
-                chatlog: updatedChatlog,
-              })
-              .then(() => {
-                resolve(updatedChatlog);
-              })
-              .catch((error) => {
-                console.error(error);
-                resolve();
-              });
-          } catch (error) {
-            console.error(error);
-            resolve();
+    if (newMessage) {
+      return new Promise((resolve) => {
+        setChatlog((prevChatlog) => {
+          const updatedChatlog = [
+            ...prevChatlog,
+            {
+              role: newMessage.role,
+              content: newMessage.content,
+              isMedia: newMessage.isMedia,
+            },
+          ];
+  
+          console.log("%c ########################")
+          console.log(updatedChatlog)
+          console.log("%c ########################")
+  
+          if (user && user._id) {
+            try {
+              axios
+                .put(`/user/${user._id}/updatechatlog`, {
+                  chatlog: updatedChatlog,
+                })
+                .then(() => {
+                  resolve(updatedChatlog);
+                })
+                .catch((error) => {
+                  console.error(error);
+                  resolve();
+                });
+            } catch (error) {
+              console.error(error);
+              resolve();
+            }
+          } else {
+            resolve(updatedChatlog);
           }
-        } else {
-          resolve(updatedChatlog);
-        }
-
-        return updatedChatlog;
+  
+          return updatedChatlog;
+        });
       });
-    });
+    }
   };
 
   const handleDeleteChatLog = async () => {
