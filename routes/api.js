@@ -33,7 +33,7 @@ router.post("/query", (req, res) => {
   logs.unshift({role: "system", content: "You are a helpful assistant."})
   logs = logs.map(log => {
     return ({
-      role: log.role,
+      role: log.role === BOT ? BOT : "user",
       content: log.content
     })
   })
