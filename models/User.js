@@ -10,11 +10,11 @@ const UserSchema = mongoose.Schema({
   colorScheme: String,
   chatlog: [
     {
-      username: {
+      role: {
         type: String,
         required: [true, "something went wrong!"],
       },
-      message: {
+      content: {
         type: String,
         required: [true, "something went wrong!"],
       },
@@ -29,8 +29,8 @@ const UserSchema = mongoose.Schema({
 UserSchema.pre("save", function (next) {
   if (this.isNew) {
     this.chatlog.push({
-      username: BOT,
-      message: DEFAULT_BOT_MESSAGE,
+      role: BOT,
+      content: DEFAULT_BOT_MESSAGE,
       isMedia: false,
     });
   }

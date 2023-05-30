@@ -164,6 +164,9 @@ const Container = () => {
   };
 
   const updateChatlogDatabase = (newMessage) => {
+    console.log("%c ############################", "color: gold")
+    console.log(newMessage)
+    console.log("%c ############################", "color: gold")
     return new Promise((resolve) => {
       setChatlog((prevChatlog) => {
         const updatedChatlog = [
@@ -174,6 +177,10 @@ const Container = () => {
             isMedia: newMessage.isMedia,
           },
         ];
+
+        console.log("%c ########################")
+        console.log(updatedChatlog)
+        console.log("%c ########################")
 
         if (user && user._id) {
           try {

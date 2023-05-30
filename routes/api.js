@@ -21,27 +21,28 @@ router.post("/image-query", async (req, res) => {
   });
   const url = response.data.data[0].url;
   const responseMessage = {
-    username: BOT,
-    message: url,
+    role: BOT,
+    content: url,
     isMedia: true,
   };
   res.status(200).json({ success: true, responseMessage });
 });
 
 router.post("/query", (req, res) => {
-  const message = req.body.message;
+  let logs = req.body.logs;
+  logs.unshift({role: "system", content: "You are a helpful assistant."})
+  logs = logs.map(log => {
+    return ({
+      role: log.role,
+      content: log.content
+    })
+  })
   axios
     .post(
-      "https://api.openai.com/v1/completions",
+      "https://api.openai.com/v1/chat/completions",
       {
-        model: "text-davinci-003",
-        prompt: message,
-        temperature: 1,
-        max_tokens: 150,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0.6,
-        stop: [" Human:", " AI:"],
+        model: "gpt-3.5-turbo",
+        messages: logs,
       },
       {
         headers: {
@@ -51,10 +52,10 @@ router.post("/query", (req, res) => {
       }
     )
     .then((response) => {
-      const generatedText = response.data.choices[0].text;
+      const generatedText = response.data.choices[0].message.content;
       const responseMessage = {
-        username: BOT,
-        message: generatedText,
+        role: BOT,
+        content: generatedText,
         isMedia: false,
       };
       res.status(200).json({ success: true, responseMessage });
@@ -62,8 +63,8 @@ router.post("/query", (req, res) => {
     .catch((error) => {
       console.error("Error:", error.response);
       const responseMessage = {
-        username: BOT,
-        message: "Something went wrong with the request.",
+        role: BOT,
+        content: "Something went wrong with the request.",
         isMedia: false,
       };
       res.status(500).json({

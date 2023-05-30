@@ -49,8 +49,8 @@ router.put("/:id/deletechatlog", checkAuth, async (req, res) => {
         $set: {
           chatlog: [
             {
-              username: BOT,
-              message: DEFAULT_BOT_MESSAGE,
+              role: BOT,
+              content: DEFAULT_BOT_MESSAGE,
               isMedia: false,
             },
           ],
