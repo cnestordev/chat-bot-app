@@ -22,6 +22,10 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         required: [true, "something went wrong!"],
       },
+      hasError: {
+        type: Boolean,
+        default: false
+      }
     },
   ],
 });

@@ -13,9 +13,13 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 router.post("/image-query", async (req, res) => {
-  const message = req.body.message;
+  const logs = req.body.logs;
+  const regex = /create|generate/i;
+  const request = logs.reverse().find((log) => {
+    return regex.test(log.content);
+  });
   const response = await openai.createImage({
-    prompt: message,
+    prompt: request.content,
     n: 1,
     size: "1024x1024",
   });
@@ -30,13 +34,13 @@ router.post("/image-query", async (req, res) => {
 
 router.post("/query", (req, res) => {
   let logs = req.body.logs;
-  logs.unshift({role: "system", content: "You are a helpful assistant."})
+  logs.unshift({ role: "system", content: "You are a helpful assistant." });
   logs = logs.map(log => {
     return ({
       role: log.role === BOT ? BOT : "user",
       content: log.content
-    })
-  })
+    });
+  });
   axios
     .post(
       "https://api.openai.com/v1/chat/completions",
@@ -61,18 +65,24 @@ router.post("/query", (req, res) => {
       res.status(200).json({ success: true, responseMessage });
     })
     .catch((error) => {
-      console.error("Error:", error.response);
+      console.error("Error:", error);
       const responseMessage = {
         role: BOT,
         content: "Something went wrong with the request.",
         isMedia: false,
+        hasError: true
       };
       res.status(500).json({
         success: false,
         responseMessage,
-        error: error.response
+        error: {
+          message: error.message,
+          status: error.response && error.response.status,
+          data: error.response && error.response.data
+        }
       });
     });
+    
 });
 
 router.get("/tts", async (req, res) => {

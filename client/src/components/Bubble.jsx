@@ -13,7 +13,7 @@ const Bubble = ({ message }) => {
     <div
       className={`bubble-container ${
         message.role === BOT ? BOT.toLowerCase() : "user"
-      } ${message.isMedia ? "image" : "text"} ${isZoomed ? "zoom" : ""}`}
+      } ${message.isMedia ? "image" : "text"} ${isZoomed ? "zoom" : ""} ${message.hasError ? "error" : ""}`}
     >
       <p className="username">{message.role}</p>
       {message.isMedia ? (

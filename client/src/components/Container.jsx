@@ -172,6 +172,7 @@ const Container = () => {
               role: newMessage.role,
               content: newMessage.content,
               isMedia: newMessage.isMedia,
+              hasError: newMessage.hasError
             },
           ];
           if (user && user._id) {
