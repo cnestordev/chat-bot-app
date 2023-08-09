@@ -20,7 +20,7 @@ const Header = ({ toggleMute, isMute, handleMenuToggle, isMenuOpen }) => {
       >
         <FontAwesomeIcon className="icon" icon={faArrowRight} />
       </div>
-      <div className="title">
+      {/* <div className="title">
         <FontAwesomeIcon className="icon" icon={faRobot} />
         <h2>Chat Bot</h2>
       </div>
@@ -29,7 +29,7 @@ const Header = ({ toggleMute, isMute, handleMenuToggle, isMenuOpen }) => {
           className="icon"
           icon={isMute ? faVolumeXmark : faVolumeHigh}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

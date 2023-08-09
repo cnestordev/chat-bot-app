@@ -9,6 +9,7 @@
   padding: 20px;
 }
 .header-container .menu {
+  color: #ffe;
   display: none;
   font-size: 20px;
   padding: 10px;
@@ -27,7 +28,7 @@
 .header-container .title h2,
 .header-container .title .icon {
   font-size: 25px;
-  color: #424242;
+  color: #5f5f5f;
   font-weight: 600;
 }
 .header-container .media {
@@ -36,7 +37,7 @@
 }
 .header-container .media .icon {
   cursor: pointer;
-  color: #424242;
+  color: #5f5f5f;
   font-size: 17px;
 }
 .header-container .media:active {

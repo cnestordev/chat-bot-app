@@ -11,7 +11,7 @@ const Input = ({ onInputChange, onEnterPressed, value }) => {
 
   return (
     <div className="input-container">
-      <FontAwesomeIcon className="icon" icon={faSearch} />
+      {/* <FontAwesomeIcon className="icon" icon={faSearch} /> */}
       <input
         type="text"
         placeholder="Type a message"

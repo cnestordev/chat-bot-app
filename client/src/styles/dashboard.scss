@@ -1,14 +1,16 @@
 @use "shared.scss";
 
 .dashboard-container {
-  background-color: shared.$chat-container-header-bg-color;
-  border-radius: shared.$main-border-radius;
-  width: 80%;
+  // background-color: shared.$chat-container-header-bg-color;
+  background-color: #000;
+  // border-radius: shared.$main-border-radius;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 90%;
+  // height: 90%;
+  height: 100%;
   audio {
     opacity: 0;
     position: absolute;
